@@ -13,17 +13,19 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     public bool IsGrounded;
     [SerializeField] private LayerMask groundLayer;
+    private BoxCollider2D boxcollider2D;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        boxcollider2D = GetComponent<BoxCollider2D>();
         //IsGrounded = false;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         MovementInput();
         
@@ -52,17 +54,17 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("IsRunning", true);
         }       
 
-       else if (Input.GetAxis("Horizontal") < 0)
-       {
-           sprite.flipX = true;
-           anim.SetBool("IsRunning", true);
-       }
+        else if (Input.GetAxis("Horizontal") < 0)
+        {
+            sprite.flipX = true;
+            anim.SetBool("IsRunning", true);
+        }
 
-       else
-       {
-          anim.SetBool("IsRunning", false);
+        else
+        {
+            anim.SetBool("IsRunning", false);
 
-       }
+        }
 
         transform.localScale = characterScale;
     }
@@ -70,36 +72,36 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         RaycastHit2D hitInfo;
-        hitInfo = Physics2D.Raycast(transform.position + new Vector3(0, sprite.bounds.extents.y - 3.3f, 0), Vector2.down, 1f, groundLayer);
+        hitInfo = Physics2D.Raycast(boxcollider2D.bounds.center, Vector2.down, boxcollider2D.bounds.extents.y + .05f, groundLayer);
+        Color rayColor;
 
-        if (hitInfo)
+        if (hitInfo.collider != null)
         {
-            Debug.Log("Touching the ground");
+           // Debug.Log("Touching the ground");
             IsGrounded = true;
-         
+            rayColor = Color.red;
+            anim.SetBool("IsJumping", false);
         }
         else
         {
-            Debug.Log("Not Touching the ground");
+           // Debug.Log("Not Touching the ground");
             IsGrounded = false;
-
+            rayColor = Color.green;
+            anim.SetBool("IsJumping", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded == true)
+        if (Input.GetKey(KeyCode.Space) && IsGrounded == true)
         {
             rb.AddForce(Vector2.up * JumpHeight);
         }
 
-        Debug.DrawRay(transform.position + new Vector3(0,sprite.bounds.extents.y - 3.3f,0), Vector2.down * 1f, Color.red);
 
-        if(IsGrounded == true)
-        {
-            anim.SetBool("IsJumping", false);
+        Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down*(boxcollider2D.bounds.extents.y + .05f), rayColor);
 
-        }
-        else if(IsGrounded == false)
-        {
-            anim.SetBool("IsJumping", true);
-        }
+        Debug.Log(hitInfo.collider);
+
+        
     }
+
+    
 }
