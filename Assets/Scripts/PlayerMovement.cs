@@ -8,13 +8,18 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float speed;
     [SerializeField] private float JumpHeight;
+    private SpriteRenderer sprite;
     private float MoveVelocity;
     private Animator anim;
+    public bool IsGrounded;
+    [SerializeField] private LayerMask groundLayer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
+        //IsGrounded = false;
     }
 
     // Update is called once per frame
@@ -43,13 +48,13 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetAxis("Horizontal") > 0)
         {
-            characterScale.x = 0.81f;
+            sprite.flipX = false;
             anim.SetBool("IsRunning", true);
         }       
 
        else if (Input.GetAxis("Horizontal") < 0)
        {
-           characterScale.x = -0.81f;
+           sprite.flipX = true;
            anim.SetBool("IsRunning", true);
        }
 
@@ -64,8 +69,37 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        float JumpSpeed = Input.GetAxis("Jump") * JumpHeight * Time.deltaTime;
+        RaycastHit2D hitInfo;
+        hitInfo = Physics2D.Raycast(transform.position + new Vector3(0, sprite.bounds.extents.y - 3.3f, 0), Vector2.down, 1f, groundLayer);
 
-        transform.position = new Vector2(transform.position.x, transform.position.y + JumpSpeed);
+        if (hitInfo)
+        {
+            Debug.Log("Touching the ground");
+            IsGrounded = true;
+         
+        }
+        else
+        {
+            Debug.Log("Not Touching the ground");
+            IsGrounded = false;
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded == true)
+        {
+            rb.AddForce(Vector2.up * JumpHeight);
+        }
+
+        Debug.DrawRay(transform.position + new Vector3(0,sprite.bounds.extents.y - 3.3f,0), Vector2.down * 1f, Color.red);
+
+        if(IsGrounded == true)
+        {
+            anim.SetBool("IsJumping", false);
+
+        }
+        else if(IsGrounded == false)
+        {
+            anim.SetBool("IsJumping", true);
+        }
     }
 }
