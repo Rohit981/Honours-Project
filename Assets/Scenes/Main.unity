@@ -120,6 +120,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &72277078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1758771571, guid: 4cc4893300aeb2b46ad55ea73854864b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8388039713097433979}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &72277080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72277078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f641b4bbccc9ee54eacd5ac231864ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Missile: {fileID: 1812507318097722086, guid: 8dd9e4461f6848d47a9a8fa0a3c834f5, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +150,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -146,6 +166,21 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ba2b2a601640c408329b74a0f0029d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1936325050}
+  smoothSpeed: 0.125
+  Offset: {x: 0, y: 0, z: -1.09}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -278,11 +313,17 @@ Transform:
   m_GameObject: {fileID: 1934370671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.94, y: -2.42, z: 0}
-  m_LocalScale: {x: 7.398268, y: 5.7785773, z: 5.6367755}
+  m_LocalScale: {x: 11.169165, y: 8.723918, z: 8.50984}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1936325050 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8388039712260537478, guid: 4cc4893300aeb2b46ad55ea73854864b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8388039713097433979}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3673493559651072177
 PrefabInstance:
   m_ObjectHideFlags: 0

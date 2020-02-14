@@ -25,11 +25,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         MovementInput();
         
-    }
+    }   
 
     void MovementInput()
     {
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down*(boxcollider2D.bounds.extents.y + .05f), rayColor);
 
-        Debug.Log(hitInfo.collider);
+        //Debug.Log(hitInfo.collider);
 
         
     }
