@@ -9,11 +9,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float JumpHeight;
     private SpriteRenderer sprite;
-    private float MoveVelocity;
-    private Animator anim;
+    internal Animator anim;
     public bool IsGrounded;
     [SerializeField] private LayerMask groundLayer;
     private BoxCollider2D boxcollider2D;
+    internal bool IsFacingRight;
 
     void Start()
     {
@@ -50,13 +50,16 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetAxis("Horizontal") > 0)
         {
-            sprite.flipX = false;
+            //sprite.flipX = false;
+            characterScale.x = 0.81f;
             anim.SetBool("IsRunning", true);
+
         }       
 
         else if (Input.GetAxis("Horizontal") < 0)
         {
-            sprite.flipX = true;
+            //sprite.flipX = true;
+            characterScale.x = -0.81f;    
             anim.SetBool("IsRunning", true);
         }
 
@@ -67,6 +70,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.localScale = characterScale;
+
+        if(characterScale.x == 0.81f)
+        {
+            IsFacingRight = true;
+
+        }
+        else if(characterScale.x == -0.81f)
+        {
+            IsFacingRight = false;
+        }
     }
 
     void Jump()
@@ -100,8 +113,9 @@ public class PlayerMovement : MonoBehaviour
 
         //Debug.Log(hitInfo.collider);
 
-        
     }
+
+
 
     
 }
