@@ -20,6 +20,7 @@ public class SpawnMissles : MonoBehaviour
             player.anim.SetBool("IsIdleShooting", true);
             Instantiate(Missile, transform.position, Quaternion.Euler(0,0,-90));
             
+            
         }
 
         else if(Input.GetKeyDown(KeyCode.Mouse0) && player.IsFacingRight == false)
