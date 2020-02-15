@@ -8,19 +8,23 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float speed;
     [SerializeField] private float JumpHeight;
-    private SpriteRenderer sprite;
     internal Animator anim;
     public bool IsGrounded;
     [SerializeField] private LayerMask groundLayer;
     private BoxCollider2D boxcollider2D;
     internal bool IsFacingRight;
+    [SerializeField] private string Horizontal;
+    [SerializeField] private float flipValue;
+    [SerializeField] private Camera otherPlayerCamera;
+     private Camera posesedPlayerCamera;
+    
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
         boxcollider2D = GetComponent<BoxCollider2D>();
+        posesedPlayerCamera = GetComponentInChildren<Camera>();
         //IsGrounded = false;
     }
 
@@ -34,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     void MovementInput()
     {
 
-        float Movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        float Movement = Input.GetAxis(Horizontal) * speed * Time.deltaTime;
 
         transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
              
@@ -48,19 +52,26 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 characterScale = transform.localScale;
 
-        if(Input.GetAxis("Horizontal") > 0)
+        if(Input.GetAxis(Horizontal) > 0)
         {
             //sprite.flipX = false;
-            characterScale.x = 0.81f;
+            characterScale.x = flipValue;
             anim.SetBool("IsRunning", true);
+            posesedPlayerCamera.enabled = true;
+            otherPlayerCamera.enabled = false;
+           
 
         }       
 
-        else if (Input.GetAxis("Horizontal") < 0)
+        else if (Input.GetAxis(Horizontal) < 0)
         {
             //sprite.flipX = true;
-            characterScale.x = -0.81f;    
+            characterScale.x = -flipValue;    
             anim.SetBool("IsRunning", true);
+            posesedPlayerCamera.enabled = true;
+            otherPlayerCamera.enabled = false;
+            
+
         }
 
         else
@@ -71,12 +82,12 @@ public class PlayerMovement : MonoBehaviour
 
         transform.localScale = characterScale;
 
-        if(characterScale.x == 0.81f)
+        if(characterScale.x == flipValue)
         {
             IsFacingRight = true;
 
         }
-        else if(characterScale.x == -0.81f)
+        else if(characterScale.x == -flipValue)
         {
             IsFacingRight = false;
         }
