@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxcollider2D;
     internal bool IsFacingRight;
     [SerializeField] private string Horizontal;
-    [SerializeField] private float flipValue;
     [SerializeField] private Camera otherPlayerCamera;
      private Camera posesedPlayerCamera;
     
@@ -55,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxis(Horizontal) > 0)
         {
             //sprite.flipX = false;
-            characterScale.x = flipValue;
+            characterScale.x = 1;
             anim.SetBool("IsRunning", true);
            
            
@@ -65,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetAxis(Horizontal) < 0)
         {
             //sprite.flipX = true;
-            characterScale.x = -flipValue;    
+            characterScale.x = -1;    
             anim.SetBool("IsRunning", true);
             
             
@@ -80,12 +79,12 @@ public class PlayerMovement : MonoBehaviour
 
         transform.localScale = characterScale;
 
-        if(characterScale.x == flipValue)
+        if(characterScale.x == 1)
         {
             IsFacingRight = true;
 
         }
-        else if(characterScale.x == -flipValue)
+        else if(characterScale.x == -1)
         {
             IsFacingRight = false;
         }

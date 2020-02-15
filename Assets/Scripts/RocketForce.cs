@@ -6,14 +6,12 @@ public class RocketForce : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private float rocketSpeed;
-    private PlayerMovement player;
     private float DestroyTime;
     [SerializeField] private float AliveTime;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = FindObjectOfType<PlayerMovement>();
         DestroyTime = 0f;
     }
 

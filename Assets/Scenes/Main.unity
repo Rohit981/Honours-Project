@@ -364,51 +364,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8388039713097433979}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2061325976
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2061325977}
-  - component: {fileID: 2061325978}
-  m_Layer: 0
-  m_Name: ShootPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2061325977
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061325976}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.53, y: -0.41, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 751342061}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2061325978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061325976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bbb3544fc1a14a4badc342b90772ee2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ninjaStar: {fileID: 3753618994875346077, guid: dbb622f1bf0c41c418a3278e9f60e23b,
-    type: 3}
 --- !u!1001 &3673493559651072177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -619,24 +574,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 751342058, guid: dc91bf3c5ca188343b1e0d454a106f7c, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.07884097
-      objectReference: {fileID: 0}
-    - target: {fileID: 751342058, guid: dc91bf3c5ca188343b1e0d454a106f7c, type: 3}
-      propertyPath: m_Size.y
-      value: 4.5476823
-      objectReference: {fileID: 0}
-    - target: {fileID: 3482002680080998624, guid: dc91bf3c5ca188343b1e0d454a106f7c,
-        type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4160131162635005129, guid: dc91bf3c5ca188343b1e0d454a106f7c,
-        type: 3}
-      propertyPath: otherPlayerCamera
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4874380398278862869, guid: dc91bf3c5ca188343b1e0d454a106f7c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -805,10 +742,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1445101567, guid: 4cc4893300aeb2b46ad55ea73854864b, type: 3}
-      propertyPath: otherPlayerCamera
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8388039712260537474, guid: 4cc4893300aeb2b46ad55ea73854864b,
         type: 3}
       propertyPath: m_Name

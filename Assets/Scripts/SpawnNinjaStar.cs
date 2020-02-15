@@ -17,7 +17,7 @@ public class SpawnNinjaStar : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && player.IsFacingRight == true)
         {
-            //player.anim.SetBool("IsIdleShooting", true);
+            player.anim.SetBool("IsShooting", true);
             Instantiate(ninjaStar, transform.position, Quaternion.Euler(0, 0, -90));
 
 
@@ -25,15 +25,15 @@ public class SpawnNinjaStar : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.E) && player.IsFacingRight == false)
         {
-            //player.anim.SetBool("IsIdleShooting", true);
+            player.anim.SetBool("IsShooting", true);
             Instantiate(ninjaStar, transform.position, Quaternion.Euler(0, 0, 90));
 
         }
 
-        //else
-        //{
-        //    player.anim.SetBool("IsIdleShooting", false);
+        else
+        {
+            player.anim.SetBool("IsShooting", false);
 
-        //}
+        }
     }
 }

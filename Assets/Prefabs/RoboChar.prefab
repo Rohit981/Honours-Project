@@ -214,5 +214,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   Horizontal: Horizontal
-  flipValue: 1
   otherPlayerCamera: {fileID: 0}
