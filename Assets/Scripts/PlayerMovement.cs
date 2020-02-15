@@ -57,8 +57,7 @@ public class PlayerMovement : MonoBehaviour
             //sprite.flipX = false;
             characterScale.x = flipValue;
             anim.SetBool("IsRunning", true);
-            posesedPlayerCamera.enabled = true;
-            otherPlayerCamera.enabled = false;
+           
            
 
         }       
@@ -68,8 +67,7 @@ public class PlayerMovement : MonoBehaviour
             //sprite.flipX = true;
             characterScale.x = -flipValue;    
             anim.SetBool("IsRunning", true);
-            posesedPlayerCamera.enabled = true;
-            otherPlayerCamera.enabled = false;
+            
             
 
         }
