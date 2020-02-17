@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private string Horizontal;
     [SerializeField] private Camera otherPlayerCamera;
     private Camera posesedPlayerCamera;
-    [SerializeField] private float Health;
+  
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         boxcollider2D = GetComponent<BoxCollider2D>();
         posesedPlayerCamera = GetComponentInChildren<Camera>();
-        Health = 100;
+       
         //IsGrounded = false;
     }
 
@@ -35,10 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        Dead();
-    }
+  
 
     void MovementInput()
     {
@@ -129,21 +126,9 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    void Dead()
-    {
-        if(Health <= 0)
-        {
-            anim.SetBool("IsDead", true);
-        }
-    }
+   
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Throwables")
-        {
-            Health -= 10;
-        }
-    }
+   
 
 
 

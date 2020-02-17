@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 1445101566}
   - component: {fileID: 1445101562}
   - component: {fileID: 1445101567}
+  - component: {fileID: 1312715297}
   m_Layer: 11
   m_Name: RoboChar
   m_TagString: Enemy
@@ -216,7 +217,20 @@ MonoBehaviour:
     m_Bits: 256
   Horizontal: Horizontal
   otherPlayerCamera: {fileID: 0}
+--- !u!114 &1312715297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388039712260537474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968d8ea1093cde5429c742b239019536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Health: 0
+  HealthBar: {fileID: 0}
 --- !u!1001 &9140806609873166134
 PrefabInstance:
   m_ObjectHideFlags: 0

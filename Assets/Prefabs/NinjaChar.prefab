@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 3482002680080998624}
   - component: {fileID: 751342058}
   - component: {fileID: 4160131162635005129}
+  - component: {fileID: 1828832546}
   m_Layer: 10
   m_Name: NinjaChar
   m_TagString: Enemy
@@ -217,7 +218,20 @@ MonoBehaviour:
     m_Bits: 256
   Horizontal: Horizontal1
   otherPlayerCamera: {fileID: 0}
+--- !u!114 &1828832546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5235047061106381004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968d8ea1093cde5429c742b239019536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Health: 0
+  HealthBar: {fileID: 0}
 --- !u!1001 &2662858709856285042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -339,6 +353,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 375
+      objectReference: {fileID: 0}
+    - target: {fileID: 336188532056942112, guid: f2c122ff460a17044b4cfde593a9389e,
+        type: 3}
+      propertyPath: m_Direction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 336188531963800492, guid: f2c122ff460a17044b4cfde593a9389e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.46
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2c122ff460a17044b4cfde593a9389e, type: 3}
