@@ -26,12 +26,12 @@ public class ObjectForce : MonoBehaviour
     {
         if(transform.localRotation.z > 0)
         {
-            rb.AddForce(new Vector2(-1,0) * rocketSpeed, ForceMode2D.Force);
+            rb.AddForce(new Vector2(-1,0) * rocketSpeed, ForceMode2D.Impulse);
 
         }
         else 
         {
-            rb.AddForce(new Vector2(1,0) * rocketSpeed, ForceMode2D.Force);
+            rb.AddForce(new Vector2(1,0) * rocketSpeed, ForceMode2D.Impulse);
 
         }
 

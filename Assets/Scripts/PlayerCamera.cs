@@ -11,7 +11,7 @@ public class PlayerCamera : MonoBehaviour
     
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         Vector3 centerPoint = GetCenterPoint();
         Vector3 newPosition = centerPoint + Offset;

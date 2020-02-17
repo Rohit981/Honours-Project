@@ -32,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        MovementInput();
+       
+            MovementInput();
 
     }
 
@@ -105,7 +106,8 @@ public class PlayerMovement : MonoBehaviour
            // Debug.Log("Touching the ground");
             IsGrounded = true;
             rayColor = Color.red;
-            anim.SetBool("IsJumping", false);
+            anim.SetBool("IsJumping", false);          
+
         }
         else
         {
@@ -113,6 +115,8 @@ public class PlayerMovement : MonoBehaviour
             IsGrounded = false;
             rayColor = Color.green;
             anim.SetBool("IsJumping", true);
+            anim.SetBool("IsRunning", false);
+
         }
 
         if (Input.GetAxis(JumpButton) > 0  && IsGrounded == true)
