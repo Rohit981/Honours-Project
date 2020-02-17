@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxcollider2D;
     internal bool IsFacingRight;
     [SerializeField] private string Horizontal;
+    [SerializeField] private string JumpButton;
     [SerializeField] private Camera otherPlayerCamera;
     private Camera posesedPlayerCamera;
   
@@ -114,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("IsJumping", true);
         }
 
-        if (Input.GetKey(KeyCode.Space) && IsGrounded == true)
+        if (Input.GetAxis(JumpButton) > 0  && IsGrounded == true)
         {
             rb.AddForce(Vector2.up * JumpHeight);
         }

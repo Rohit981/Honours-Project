@@ -8,11 +8,13 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float Health;
     private Animator anim;
     [SerializeField] private Slider HealthBar;
+    private Collider2D col;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         HealthBar = GetComponentInChildren<Slider>();
+        //col = GetComponent<Collider2D>();
         Health = 100;
     }
 
@@ -29,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
         {
             HealthBar.gameObject.SetActive(false);
             anim.SetBool("IsDead", true);
+           //col.enabled = false;
         }
     }
 

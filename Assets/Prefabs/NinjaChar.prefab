@@ -217,6 +217,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   Horizontal: Horizontal1
+  JumpButton: Jump1
   otherPlayerCamera: {fileID: 0}
 --- !u!114 &1828832546
 MonoBehaviour:
@@ -354,15 +355,15 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 375
       objectReference: {fileID: 0}
-    - target: {fileID: 336188532056942112, guid: f2c122ff460a17044b4cfde593a9389e,
-        type: 3}
-      propertyPath: m_Direction
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 336188531963800492, guid: f2c122ff460a17044b4cfde593a9389e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -1.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 336188532056942112, guid: f2c122ff460a17044b4cfde593a9389e,
+        type: 3}
+      propertyPath: m_Direction
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2c122ff460a17044b4cfde593a9389e, type: 3}
