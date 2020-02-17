@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketForce : MonoBehaviour
+public class ObjectForce : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private float rocketSpeed;
@@ -42,6 +42,14 @@ public class RocketForce : MonoBehaviour
         DestroyTime += Time.deltaTime;
 
         if(DestroyTime >= AliveTime)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
         {
             Destroy(this.gameObject);
         }
