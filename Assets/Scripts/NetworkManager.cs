@@ -6,6 +6,11 @@ using System.Runtime.InteropServices;
 public class NetworkManager : MonoBehaviour
 {
 
+   public struct InputStruct
+   {
+       public byte Jump;
+   }
+
     // Start is called before the first frame update
     void Start()
     {
