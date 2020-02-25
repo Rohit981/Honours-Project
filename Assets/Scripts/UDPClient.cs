@@ -39,16 +39,37 @@ public class UDPClient : NetworkManager
     {
         //Send information every 3rd frame 
         SendCounter += Time.deltaTime;
+
         if(SendCounter >= 0.048)
         {
-            Send();
+            if(Input.GetAxis("Jump") > 0)
+            {
+                JumpingSendInput();
+            }
+            //Send();
         }
+
 
 
         Recieve();
     }
 
-    void Send()
+    //void Send()
+    //{
+    //    InputStruct inputMsg = new InputStruct();
+
+    //    inputMsg.Jump = 1;
+
+    //    Byte[] sendBytes = new Byte[1 + Marshal.SizeOf(inputMsg)];
+    //    SerializeStruct<InputStruct>(inputMsg, ref sendBytes, 1);
+
+    //    //sendBytes[0] = 0;
+
+
+    //    udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5556, SendCallback, null);
+    //}
+
+    void JumpingSendInput()
     {
         InputStruct inputMsg = new InputStruct();
 
@@ -57,7 +78,7 @@ public class UDPClient : NetworkManager
         Byte[] sendBytes = new Byte[1 + Marshal.SizeOf(inputMsg)];
         SerializeStruct<InputStruct>(inputMsg, ref sendBytes, 1);
 
-        //sendBytes[0] = 0;
+        sendBytes[0] = 0;
 
 
         udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5556, SendCallback, null);
@@ -78,7 +99,7 @@ public class UDPClient : NetworkManager
         {
             byte[] b = udpClient.Receive(ref e);
 
-            //Message[] msgArray = ParseBytes(b);
+            InputStruct[] msgArray = ParseBytes(b);
             //for (int i = 0; i < msgArray.Length; i++)
             //{
             //    //lagQueue.Add(msgArray[i]);
@@ -87,6 +108,42 @@ public class UDPClient : NetworkManager
             //}
 
         }
+    }
+
+    static InputStruct[] ParseBytes(byte[] receiveBytes)
+    {
+        int messageID = receiveBytes[0]; //The first byte is the typoe of message 
+
+
+        InputStruct[] msgArray = new InputStruct[receiveBytes[1]];   //Second byte is how many messages (for message type 0)
+
+        //ServerTime = DeserializeStruct<int>(receiveBytes, 2);    //3-7 bytes are the timein milliseconds
+
+
+        
+        switch (messageID)
+        {
+            case 0:
+                ////For each message we've been told to receive, unpack it.
+                //for (int i = 0; i < msgArray.Length; i++)
+                //{
+                //    //msgArray[i] = DeserializeStruct<InputStruct>(receiveBytes, 2 + (i * Marshal.SizeOf(typeof(InputStruct))));
+                //}
+                print("Jump Button Recieved");
+                break;
+            case 1:
+                //print("Shooting");
+
+                break;
+            case 2:
+                break;
+            case 3:
+                int winnerID;
+                int score;
+                int time;
+                break;
+        }
+        return msgArray;
     }
 
     public static void SendCallback(IAsyncResult ar)
