@@ -14,6 +14,11 @@ public class UDPClient : NetworkManager
     private UdpClient udpClient;
     private Int32 UDP_port;
     private float SendCounter;
+    List<InputStruct> inputs;
+    InputStruct inputMsg;
+    [SerializeField] private Text InputText;
+    [SerializeField] private Text RecievedText;
+   
 
     public struct UdpState
     {
@@ -32,6 +37,9 @@ public class UDPClient : NetworkManager
 
         //Connecting client to the port
         udpClient.Connect("127.0.0.1", UDP_port);
+
+       
+        inputMsg = new InputStruct();
     }
 
     // Update is called once per frame
@@ -40,48 +48,47 @@ public class UDPClient : NetworkManager
         //Send information every 3rd frame 
         SendCounter += Time.deltaTime;
 
+        //inputs.Add(inputMsg);
+
         if(SendCounter >= 0.048)
         {
-            if(Input.GetAxis("Jump") > 0)
-            {
-                JumpingSendInput();
-            }
-            //Send();
+            print("Entered Send state");
+          
+            JumpingSendInput();
+            SendCounter = 0;
+                      
         }
-
-
 
         Recieve();
     }
 
-    //void Send()
-    //{
-    //    InputStruct inputMsg = new InputStruct();
-
-    //    inputMsg.Jump = 1;
-
-    //    Byte[] sendBytes = new Byte[1 + Marshal.SizeOf(inputMsg)];
-    //    SerializeStruct<InputStruct>(inputMsg, ref sendBytes, 1);
-
-    //    //sendBytes[0] = 0;
-
-
-    //    udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5556, SendCallback, null);
-    //}
+    
+    
 
     void JumpingSendInput()
     {
-        InputStruct inputMsg = new InputStruct();
 
-        inputMsg.Jump = 1;
+        if (Input.GetAxis("Jump1") > 0)
+        {
 
-        Byte[] sendBytes = new Byte[1 + Marshal.SizeOf(inputMsg)];
-        SerializeStruct<InputStruct>(inputMsg, ref sendBytes, 1);
+             inputMsg.Jump = 1;
 
-        sendBytes[0] = 0;
+            Byte[] sendBytes = new Byte[1 + Marshal.SizeOf(inputMsg)];
+            SerializeStruct<InputStruct>(inputMsg, ref sendBytes, 0);
+
+            sendBytes[0] = 0;
+
+            InputText.text = "Pressed Input";
+
+            //udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5557 , SendCallback, null);
+            udpClient.Send(sendBytes, sendBytes.Length);
+
+            
 
 
-        udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5556, SendCallback, null);
+            
+
+        }
     }
 
     void Recieve()
@@ -100,13 +107,10 @@ public class UDPClient : NetworkManager
             byte[] b = udpClient.Receive(ref e);
 
             InputStruct[] msgArray = ParseBytes(b);
-            //for (int i = 0; i < msgArray.Length; i++)
-            //{
-            //    //lagQueue.Add(msgArray[i]);
-            //    messageQueue.Add(msgArray[i]);
+        
+            RecievedText.text = "Recieved Input";
 
-            //}
-
+           
         }
     }
 
@@ -161,13 +165,7 @@ public class UDPClient : NetworkManager
         byte[] receiveBytes = u.EndReceive(ar, ref e);
         string receiveString = Encoding.ASCII.GetString(receiveBytes);
 
-        /*  Message msg = ParseBytes(receiveBytes);
-
-
-          Instance.QueueMessage(msg);
-
-
-          print("X: " + msg.x.ToString() + ", Y: " + msg.y.ToString() + ", Rot: " + msg.RotationY.ToString());*/
+       
 
     }
 }
