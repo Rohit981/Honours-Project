@@ -18,6 +18,8 @@ public class UDPClient : NetworkManager
     InputStruct inputMsg;
     [SerializeField] private Text InputText;
     [SerializeField] private Text RecievedText;
+    [SerializeField] private Int32 Port;
+    [SerializeField] private Int32 ConnectionPort;
    
 
     public struct UdpState
@@ -32,11 +34,11 @@ public class UDPClient : NetworkManager
         SendCounter = 0f;
 
         //Initializing port value and client instance
-        UDP_port = 5557;
-        udpClient = new UdpClient();
+        //UDP_port = 5557;
+        udpClient = new UdpClient(Port);
 
         //Connecting client to the port
-        udpClient.Connect("127.0.0.1", UDP_port);
+        udpClient.Connect("127.0.0.1", ConnectionPort);
 
        
         inputMsg = new InputStruct();
@@ -52,7 +54,7 @@ public class UDPClient : NetworkManager
 
         if(SendCounter >= 0.048)
         {
-            print("Entered Send state");
+            //print("Entered Send state");
           
             JumpingSendInput();
             SendCounter = 0;
