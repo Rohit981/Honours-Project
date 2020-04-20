@@ -31,22 +31,31 @@ public class UDPClient : NetworkManager
     // Start is called before the first frame update
     void Start()
     {
+        InitializeClientVariables();
         SendCounter = 0f;
 
         //Initializing port value and client instance
         //UDP_port = 5557;
-        udpClient = new UdpClient(Port);
+        for(int i = 0; i < 4; i++)
+        {
+            udpClient = new UdpClient(players[i].port);
 
-        //Connecting client to the port
-        udpClient.Connect("127.0.0.1", ConnectionPort);
+            //Connecting client to the port
+            udpClient.Connect("127.0.0.1", players[i].port);
 
-       
+            Port = players[i].port;
+
+
+        }
+
+
         inputMsg = new InputStruct();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         //Send information every 3rd frame 
         SendCounter += Time.deltaTime;
 
@@ -84,11 +93,6 @@ public class UDPClient : NetworkManager
 
             //udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5557 , SendCallback, null);
             udpClient.Send(sendBytes, sendBytes.Length);
-
-            
-
-
-            
 
         }
     }

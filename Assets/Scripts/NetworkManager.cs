@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.InteropServices;
+using System;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -11,16 +12,53 @@ public class NetworkManager : MonoBehaviour
        public byte Jump;
    }
 
-    // Start is called before the first frame update
-    void Start()
+    public struct Player
     {
-        
+        public float PosX;
+        public float PosY;
+        public int ScaleX;
+        public int Health;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public struct ClientConnection
     {
-        
+        //public string IPAdress;
+        public Int32 port;
+       
+    }
+       
+
+
+    List<float> Client_positionX = new List<float>();
+    float Client_positionY;
+    List<int> Client_scaleX = new List<int>();
+    public ClientConnection[] players = new ClientConnection[4];
+
+
+
+    public void InitializeClientVariables()
+    {
+        print("Network Manager started");
+
+        //Initialize Positions for client in X axis
+        Client_positionX.Add(-9.11f);
+        Client_positionX.Add(9.22f);
+
+        //Initialize Position for client in Y axis
+        Client_positionY = 23.3f;
+
+        //Initializing the Client Scale in order to initialize there rotation value
+        Client_scaleX.Add(1);
+        Client_scaleX.Add(-1);
+
+        players[0].port = 5556;
+        players[1].port = 5557;
+        players[2].port = 5558;
+        players[3].port = 5559;
+
+      
+
     }
 
     //Generic function to serialize a struct into a byte array
