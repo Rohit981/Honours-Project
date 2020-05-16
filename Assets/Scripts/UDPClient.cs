@@ -34,19 +34,21 @@ public class UDPClient : NetworkManager
         InitializeClientVariables();
         SendCounter = 0f;
 
-        //Initializing port value and client instance
         //UDP_port = 5557;
-        for(int i = 0; i < 4; i++)
-        {
-            udpClient = new UdpClient(players[i].port);
+     foreach(ClientConnection c in players)
+     {
+        //Initializing port value and client instance
+        udpClient = new UdpClient(c.port);
 
-            //Connecting client to the port
-            udpClient.Connect("127.0.0.1", players[i].port);
+        //Connecting client to the port
+         udpClient.Connect("127.0.0.1", c.port);
 
-            Port = players[i].port;
+        InputText.text = c.port.ToString();
+
+        Port = c.port;
 
 
-        }
+     }
 
 
         inputMsg = new InputStruct();
@@ -89,7 +91,7 @@ public class UDPClient : NetworkManager
 
             sendBytes[0] = 0;
 
-            InputText.text = "Pressed Input";
+            //InputText.text = "Pressed Input";
 
             //udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5557 , SendCallback, null);
             udpClient.Send(sendBytes, sendBytes.Length);
@@ -114,7 +116,7 @@ public class UDPClient : NetworkManager
 
             InputStruct[] msgArray = ParseBytes(b);
         
-            RecievedText.text = "Recieved Input";
+            //RecievedText.text = "Recieved Input";
 
            
         }

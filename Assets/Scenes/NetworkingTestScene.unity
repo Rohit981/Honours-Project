@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InputText: {fileID: 1211098569}
-  RecievedText: {fileID: 1903919717}
+  RecievedText: {fileID: 0}
   Port: 5557
   ConnectionPort: 5558
 --- !u!4 &1021310892
@@ -261,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021310890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 443, y: 292.5, z: 0}
+  m_LocalPosition: {x: 419.3, y: 282.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 1211098570}
   - component: {fileID: 1211098569}
   m_Layer: 5
-  m_Name: InputText
+  m_Name: Port1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Input Text
+  m_Text: 'Port1
 
 '
 --- !u!222 &1211098570
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 1903919718}
   - component: {fileID: 1903919717}
   m_Layer: 5
-  m_Name: Recieved Text
+  m_Name: Port2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -497,7 +497,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Recieved Text
+  m_Text: Port2
 --- !u!222 &1903919718
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -588,7 +588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2017582754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,9 +601,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebf019556e07e141a0efb39e84e89be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputText: {fileID: 1211098569}
-  RecievedText: {fileID: 1903919717}
-  Port: 5558
+  InputText: {fileID: 1903919717}
+  RecievedText: {fileID: 0}
+  Port: 5600
   ConnectionPort: 5558
 --- !u!4 &2017582755
 Transform:
@@ -613,7 +613,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017582753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 443, y: 292.5, z: 0}
+  m_LocalPosition: {x: 476.3, y: 292.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

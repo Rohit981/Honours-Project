@@ -45,6 +45,7 @@ public class NetworkManager : MonoBehaviour
         Client_positionX.Add(-9.11f);
         Client_positionX.Add(9.22f);
 
+      
         //Initialize Position for client in Y axis
         Client_positionY = 23.3f;
 
