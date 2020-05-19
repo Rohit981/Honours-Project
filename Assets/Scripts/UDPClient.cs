@@ -35,20 +35,20 @@ public class UDPClient : NetworkManager
         SendCounter = 0f;
 
         //UDP_port = 5557;
-     foreach(ClientConnection c in players)
-     {
-        //Initializing port value and client instance
-        udpClient = new UdpClient(c.port);
+         foreach(ClientConnection c in players)
+         {
+            //Initializing port value and client instance
+            udpClient = new UdpClient(c.port);
 
-        //Connecting client to the port
-         udpClient.Connect("127.0.0.1", c.port);
+            //Connecting client to the port
+             udpClient.Connect("127.0.0.1", c.port);
 
-        InputText.text = c.port.ToString();
+            InputText.text = c.port.ToString();
 
-        Port = c.port;
+            Port = c.port;
 
 
-     }
+         }
 
 
         inputMsg = new InputStruct();

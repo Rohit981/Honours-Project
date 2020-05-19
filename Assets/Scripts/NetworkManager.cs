@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System.Runtime.InteropServices;
 using System;
-
+using UnityEngine;
+using UnityEngine.UI;
+using System.Net.Sockets;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Text;
+using UnityEngine.SceneManagement;
 public class NetworkManager : MonoBehaviour
 {
 
@@ -23,7 +27,7 @@ public class NetworkManager : MonoBehaviour
 
     public struct ClientConnection
     {
-        //public string IPAdress;
+        public IPAddress ClientIPAdress;
         public Int32 port;
        
     }
@@ -34,6 +38,18 @@ public class NetworkManager : MonoBehaviour
     float Client_positionY;
     List<int> Client_scaleX = new List<int>();
     public ClientConnection[] players = new ClientConnection[4];
+
+  
+    public void Update()
+    {
+        
+    }
+
+    public void ChangeScene()
+    {
+
+        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+    }
 
 
 
