@@ -25,6 +25,8 @@ public class Lobby : NetworkManager
 
     string ClientPort = "Hello";
 
+    Ping ping;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,20 +54,7 @@ public class Lobby : NetworkManager
 
     void Sent()
     {
-        //for(int i = 0; i < 4; i++)
-        //{
-
-        //    if (tcpClients.Available > 0)
-        //    {
-        //        print("Connected!");
-        //        ports[i] = ((IPEndPoint)tcpClients.Client.RemoteEndPoint).Port;
-
-        //    }
-
-        //}
-
-        //ClientPort = IpAdresses[0].ToString();
-        //print(ClientPort);
+        
 
         //// Get a stream object for reading and writing
         for (int i = 0; i < 4; i++)
