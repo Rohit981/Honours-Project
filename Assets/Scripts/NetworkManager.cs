@@ -16,6 +16,8 @@ public class NetworkManager : MonoBehaviour
        public byte Jump;
    }
 
+   
+
     public struct Player
     {
         public float PosX;
@@ -31,15 +33,18 @@ public class NetworkManager : MonoBehaviour
         public Int32 port;
        
     }
-       
 
 
+    
     List<float> Client_positionX = new List<float>();
     float Client_positionY;
     List<int> Client_scaleX = new List<int>();
     public ClientConnection[] players = new ClientConnection[4];
 
-  
+    public List<IPAddress> IpAdresses = new List<IPAddress>();
+    
+
+
     public void Update()
     {
         

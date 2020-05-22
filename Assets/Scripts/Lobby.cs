@@ -7,6 +7,9 @@ using System.Net.Sockets;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
 
 public class Lobby : NetworkManager
 {
@@ -21,11 +24,22 @@ public class Lobby : NetworkManager
     //public List<TCPClient> clients = new List<TCPClient>();
 
     public List<Int32> ports = new List<Int32>();
-    public List<IPAddress> IpAdresses = new List<IPAddress>();
 
     string ClientPort = "Hello";
 
     Ping ping;
+
+    TcpClient tcpClients;
+
+    public Int32 udpPort;
+
+    public struct PortNumber
+    {
+        public List<int> ClientUDPports ;
+    }
+
+    private PortNumber ClientPortNumber;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +56,8 @@ public class Lobby : NetworkManager
         bytes = new Byte[256];
 
         server.BeginAcceptTcpClient(OnServerConnect, null);
+
+       ClientPortNumber.ClientUDPports = new List<int>();
             
     }
 
@@ -54,46 +70,64 @@ public class Lobby : NetworkManager
 
     void Sent()
     {
-        
 
         //// Get a stream object for reading and writing
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < ClientsConnected.Count; i++)
         {
             NetworkStream stream = ClientsConnected[i].GetStream();
             data = null;
 
+            //byte[] msg = System.Text.Encoding.ASCII.GetBytes(ClientPortNumber.ClientUDPports[i].ToString());
 
-            byte[] msg = System.Text.Encoding.ASCII.GetBytes(ClientPort);
+            Byte[] msg = new Byte[Marshal.SizeOf(ClientPortNumber)];
+            SerializeStruct<PortNumber>(ClientPortNumber, ref msg, 0);
 
-            // Send back a response.
-            //stream.BeginWrite(msg, 0, msg.Length, SendCallBack, null);
+            //BinaryFormatter bf = new BinaryFormatter();
+            // bf.Serialize(stream, ClientPortNumber.ClientUDPports);
+
+            //byte[] msg = ObjectToByteArray(ClientPortNumber.ClientUDPports);
+
+            // Send back a response.            
             stream.Write(msg, 0, msg.Length);
-            print("sent");
-
+            print("sent :" + ClientPortNumber.ClientUDPports[i].ToString());
 
         }
 
-        // Shutdown and end connection
-        //client.Close();
+    }
+
+    void Recieve()
+    {
+        NetworkStream stream = tcpClients.GetStream();
+
+        stream.Read(bytes, 0, bytes.Length);
+
+        String data = System.Text.Encoding.ASCII.GetString(bytes, 0, bytes.Length);
+
+        print("Data Recived: " + data);
+
+        udpPort = Int32.Parse(data);
 
     }
 
     void OnServerConnect(IAsyncResult ar)
     {
 
-        TcpClient tcpClients = server.EndAcceptTcpClient(ar);
+        tcpClients = server.EndAcceptTcpClient(ar);
 
 
         ClientsConnected.Add(tcpClients);
         ports.Add(((IPEndPoint)tcpClients.Client.RemoteEndPoint).Port);
         IpAdresses.Add(((IPEndPoint)tcpClients.Client.RemoteEndPoint).Address);
 
+        Recieve();
 
-        if (ports.Count == 4)
+        ClientPortNumber.ClientUDPports.Add(udpPort);
+
+        if (ports.Count == 1)
         {
             
+            Sent();
             print("All clients Connected");
-             Sent();
             server.EndAcceptTcpClient(ar);
 
         }
@@ -105,12 +139,17 @@ public class Lobby : NetworkManager
 
     }
 
-    void SendCallBack(IAsyncResult ar)
-    {
-        for(int i= 0; i< 4; i++)
-        {
-            ClientsConnected[i] = (TcpClient)ar.AsyncState;  
+   
 
+    public static byte[] ObjectToByteArray(List<int> obj)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        using (var ms = new MemoryStream())
+        {
+            bf.Serialize(ms, obj);
+            return ms.ToArray();
         }
     }
+
+
 }
