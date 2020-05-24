@@ -79,17 +79,22 @@ public class Lobby : NetworkManager
 
             //byte[] msg = System.Text.Encoding.ASCII.GetBytes(ClientPortNumber.ClientUDPports[i].ToString());
 
-            Byte[] msg = new Byte[Marshal.SizeOf(ClientPortNumber)];
-            SerializeStruct<PortNumber>(ClientPortNumber, ref msg, 0);
+            //Byte[] msg = new Byte[Marshal.SizeOf(ClientPortNumber)];
+            //SerializeStruct<PortNumber>(ClientPortNumber, ref msg, 0);
 
             //BinaryFormatter bf = new BinaryFormatter();
             // bf.Serialize(stream, ClientPortNumber.ClientUDPports);
 
-            //byte[] msg = ObjectToByteArray(ClientPortNumber.ClientUDPports);
+            //int[] msgArray = ClientPortNumber.ClientUDPports.ToArray();
+            
+            //byte[] msg = new byte[msgArray.Length * 4];
+            //Buffer.BlockCopy(msgArray, 0, msg, 0, msg.Length);
+
+            byte[] msg = ObjectToByteArray(ClientPortNumber.ClientUDPports);
 
             // Send back a response.            
             stream.Write(msg, 0, msg.Length);
-            print("sent :" + ClientPortNumber.ClientUDPports[i].ToString());
+            print("sent :" + msg.ToString());
 
         }
 

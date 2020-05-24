@@ -118,30 +118,24 @@ public class TCPClient : NetworkManager
 
     void OnRead(IAsyncResult ar)
     {
-       int length = stream.EndRead(ar);
-        for (int i = 0; i < 4; i++)
-        {
+       int msgLength = stream.EndRead(ar);
 
+        //ClientPortNumber = DeserializeStruct<PortNumber>(data);
 
-            //ClientPortNumber = DeserializeStruct<PortNumber>(data);
+        //print("Response: " + ClientPortNumber.ToString());
 
-            //print("Response: " + ClientPortNumber.ToString());
+        String responseData = String.Empty;
 
-            List<String> responseData = new List<String>();
+        responseData = System.Text.Encoding.ASCII.GetString(data, 0, msgLength);
 
-            responseData.Add(System.Text.Encoding.ASCII.GetString(data, 0, length));
+        //int responseData = ByteArrayToObject(data);
 
-            //int responseData = ByteArrayToObject(data);
+        print("Response: " +  responseData.ToString());
 
-            print("Response: " +  responseData[i].ToString());
+        Recived_UDP_Port.Add(Int32.Parse (responseData));
 
-            Recived_UDP_Port.Add(Int32.Parse (responseData[i]));
+        stream.BeginRead(data, 0, data.Length, OnRead, null);
 
-            stream.BeginRead(data, 0, data.Length, OnRead, null);
-
-        }
-        
-       
 
         //if(responseData == "Hello")
         //{
