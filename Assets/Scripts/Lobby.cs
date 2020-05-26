@@ -82,15 +82,12 @@ public class Lobby : NetworkManager
             //Byte[] msg = new Byte[Marshal.SizeOf(ClientPortNumber)];
             //SerializeStruct<PortNumber>(ClientPortNumber, ref msg, 0);
 
-            //BinaryFormatter bf = new BinaryFormatter();
-            // bf.Serialize(stream, ClientPortNumber.ClientUDPports);
-
             //int[] msgArray = ClientPortNumber.ClientUDPports.ToArray();
-            
+
             //byte[] msg = new byte[msgArray.Length * 4];
             //Buffer.BlockCopy(msgArray, 0, msg, 0, msg.Length);
 
-            byte[] msg = ObjectToByteArray(ClientPortNumber.ClientUDPports);
+            //byte[] msg = ObjectToByteArray(ClientPortNumber.ClientUDPports);
 
             // Send back a response.            
             stream.Write(msg, 0, msg.Length);
