@@ -25,7 +25,7 @@ public class Lobby : NetworkManager
 
     public List<Int32> ports = new List<Int32>();
 
-    string ClientPort = "Hello";
+    string ClientPortMessage = "Hello";
 
     Ping ping;
 
@@ -79,8 +79,8 @@ public class Lobby : NetworkManager
 
             //byte[] msg = System.Text.Encoding.ASCII.GetBytes(ClientPortNumber.ClientUDPports[i].ToString());
 
-            //Byte[] msg = new Byte[Marshal.SizeOf(ClientPortNumber)];
-            //SerializeStruct<PortNumber>(ClientPortNumber, ref msg, 0);
+            Byte[] msg = new Byte[Marshal.SizeOf(ClientPortNumber)];
+            SerializeStruct<PortNumber>(ClientPortNumber, ref msg, 0);
 
             //int[] msgArray = ClientPortNumber.ClientUDPports.ToArray();
 

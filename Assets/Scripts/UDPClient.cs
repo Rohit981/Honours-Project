@@ -20,7 +20,9 @@ public class UDPClient : NetworkManager
     [SerializeField] private Text RecievedText;
     [SerializeField] private Int32 Port;
     [SerializeField] private Int32 ConnectionPort;
-   
+
+    public Int32 udpPort;
+
 
     public struct UdpState
     {
@@ -35,20 +37,20 @@ public class UDPClient : NetworkManager
         SendCounter = 0f;
 
         //UDP_port = 5557;
-         foreach(ClientConnection c in players)
-         {
+        foreach (ClientConnection c in players)
+        {
             //Initializing port value and client instance
             udpClient = new UdpClient(c.port);
 
             //Connecting client to the port
-             udpClient.Connect("127.0.0.1", c.port);
+            udpClient.Connect("127.0.0.1", c.port);
 
             InputText.text = c.port.ToString();
 
             Port = c.port;
 
 
-         }
+        }
 
 
         inputMsg = new InputStruct();
@@ -74,6 +76,8 @@ public class UDPClient : NetworkManager
 
         Recieve();
     }
+
+   
 
     
     

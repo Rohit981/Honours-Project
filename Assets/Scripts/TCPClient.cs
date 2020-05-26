@@ -28,7 +28,9 @@ public class TCPClient : NetworkManager
 
     bool IsChangingScene = false;
 
-    private UdpClient udpClient;
+    public LobbyUDPClient udp;
+
+    
 
     public Int32 udpPort;
 
@@ -69,10 +71,7 @@ public class TCPClient : NetworkManager
 
         print("TCP client Connected");
 
-        udpClient = new UdpClient();
-
-        udpClient.Connect(serverIP, Port);
-        udpPort = ((IPEndPoint)udpClient.Client.LocalEndPoint).Port;
+        udp.SendUDPPort(serverIP, Port);
 
         IsReceiveing = true;
 
@@ -85,7 +84,7 @@ public class TCPClient : NetworkManager
 
     void Send()
     {
-       Byte[] msg = System.Text.Encoding.ASCII.GetBytes(udpPort.ToString());
+       Byte[] msg = System.Text.Encoding.ASCII.GetBytes(udp.udpPort.ToString());
 
         stream = client.GetStream();
 
