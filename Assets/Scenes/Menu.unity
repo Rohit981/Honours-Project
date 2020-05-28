@@ -645,7 +645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ccb35b3f958764b9391a76f3efd2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  udp: {fileID: 3042545}
+  udpRef: {fileID: 3042545}
+  udpConnections: {fileID: 3042542}
   udpPort: 0
   Recived_UDP_Port: 
 --- !u!1 &1013050123

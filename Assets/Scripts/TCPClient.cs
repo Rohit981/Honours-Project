@@ -28,7 +28,9 @@ public class TCPClient : NetworkManager
 
     bool IsChangingScene = false;
 
-    public LobbyUDPClient udp;
+    public LobbyUDPClient udpRef;
+
+    public GameObject udpConnections;
 
     
 
@@ -52,13 +54,15 @@ public class TCPClient : NetworkManager
     {
         if(IsReceiveing == true)
         {
-            //Recieve();
+            Recieve();
 
         }
 
         if(IsChangingScene == true)
         {
+            udpRef.IsSceneChanged = true;
             SceneManager.LoadScene("Main", LoadSceneMode.Single);
+            DontDestroyOnLoad(udpConnections);
         }
     }
 
@@ -71,20 +75,20 @@ public class TCPClient : NetworkManager
 
         print("TCP client Connected");
 
-        udp.SendUDPPort(serverIP, Port);
+        udpRef.SendUDPPort(serverIP, Port);
 
         IsReceiveing = true;
 
         Send();
 
-        Recieve();
+        //Recieve();
 
         button.enabled = false;
     }
 
     void Send()
     {
-       Byte[] msg = System.Text.Encoding.ASCII.GetBytes(udp.udpPort.ToString());
+       Byte[] msg = System.Text.Encoding.ASCII.GetBytes(udpRef.udpPort.ToString());
 
         stream = client.GetStream();
 
@@ -118,6 +122,8 @@ public class TCPClient : NetworkManager
     void OnRead(IAsyncResult ar)
     {
        int msgLength = stream.EndRead(ar);
+
+        IsChangingScene = true;
 
         //ClientPortNumber = DeserializeStruct<PortNumber>(data);
 
