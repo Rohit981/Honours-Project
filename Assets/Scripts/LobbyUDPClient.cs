@@ -11,13 +11,15 @@ using System.Text;
 public class LobbyUDPClient : MonoBehaviour
 {
 
-    private UdpClient udpClient;
+    internal UdpClient udpClient;
 
     public Int32 udpPort;
 
     internal bool IsSceneChanged = false;
 
     private UDPClient udp;
+
+    public Int32[] playersPort = new Int32[4];
 
     // Start is called before the first frame update
     void Start()

@@ -10,8 +10,7 @@ using System.Text;
 
 public class UDPClient : NetworkManager
 {
-    //Client and port variables
-    private UdpClient udpClient;
+    //Client and port variables   
     private Int32 UDP_port;
     private float SendCounter;
     List<InputStruct> inputs;
@@ -23,6 +22,8 @@ public class UDPClient : NetworkManager
 
     public Int32 udpPort;
 
+    public LobbyUDPClient lobbyUDP;
+
 
     public struct UdpState
     {
@@ -33,21 +34,30 @@ public class UDPClient : NetworkManager
     // Start is called before the first frame update
     void Start()
     {
-        InitializeClientVariables();
+        lobbyUDP = GetComponent<LobbyUDPClient>();
+
         SendCounter = 0f;
 
         //UDP_port = 5557;
-        foreach (ClientConnection c in players)
+        foreach (Int32 c in lobbyUDP.playersPort)
         {
             //Initializing port value and client instance
-            udpClient = new UdpClient(c.port);
+            //udpClient = new UdpClient(c);
 
             //Connecting client to the port
-            udpClient.Connect("127.0.0.1", c.port);
+            //lobbyUDP.udpClient.Connect("127.0.0.1", lobbyUDP.playersPort[0]);
+            //lobbyUDP.udpClient.Connect("127.0.0.1", lobbyUDP.playersPort[1]);
+            //lobbyUDP.udpClient.Connect("127.0.0.1", lobbyUDP.playersPort[2]);
+            //lobbyUDP.udpClient.Connect("127.0.0.1", lobbyUDP.playersPort[3]);
 
-            InputText.text = c.port.ToString();
+            byte[] sendBytes = Encoding.ASCII.GetBytes(c.ToString());
 
-            Port = c.port;
+
+            lobbyUDP.udpClient.BeginSend( sendBytes, sendBytes.Length,SendCallback , lobbyUDP.udpClient);
+
+            print("Connected Port" + c.ToString());
+
+            Port = c;
 
 
         }
@@ -98,7 +108,7 @@ public class UDPClient : NetworkManager
             //InputText.text = "Pressed Input";
 
             //udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5557 , SendCallback, null);
-            udpClient.Send(sendBytes, sendBytes.Length);
+            lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length);
 
         }
     }
@@ -111,18 +121,20 @@ public class UDPClient : NetworkManager
 
         UdpState s = new UdpState();
         s.e = e;
-        s.u = udpClient;
+        s.u = lobbyUDP.udpClient;
 
 
-        while (udpClient.Available > 0)
+        while (lobbyUDP.udpClient.Available > 0)
         {
-            byte[] b = udpClient.Receive(ref e);
+            byte[] b = lobbyUDP.udpClient.Receive(ref e);
 
             InputStruct[] msgArray = ParseBytes(b);
-        
-            //RecievedText.text = "Recieved Input";
 
-           
+            InputText.text = "Recieved Input";
+            
+            
+
+
         }
     }
 
@@ -145,6 +157,7 @@ public class UDPClient : NetworkManager
                 //{
                 //    //msgArray[i] = DeserializeStruct<InputStruct>(receiveBytes, 2 + (i * Marshal.SizeOf(typeof(InputStruct))));
                 //}
+                
                 print("Jump Button Recieved");
                 break;
             case 1:
@@ -164,7 +177,7 @@ public class UDPClient : NetworkManager
 
     public static void SendCallback(IAsyncResult ar)
     {
-        Console.WriteLine("DONE");
+        print("DONE");
         UdpClient u = (UdpClient)ar.AsyncState;
 
     }

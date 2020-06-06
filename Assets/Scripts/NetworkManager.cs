@@ -34,6 +34,15 @@ public class NetworkManager : MonoBehaviour
        
     }
 
+     public struct PortNumber
+    {
+        //public List<int> ClientUDPports ;
+
+        public Int32 Client1_UDP_port;
+        public Int32 Client2_UDP_port;
+        public Int32 Client3_UDP_port;
+        public Int32 Client4_UDP_port;
+    }
 
     
     List<float> Client_positionX = new List<float>();

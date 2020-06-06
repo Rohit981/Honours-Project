@@ -31,6 +31,7 @@ public class TCPClient : NetworkManager
     public LobbyUDPClient udpRef;
 
     public GameObject udpConnections;
+    public GameObject chatCanvas;
 
     
 
@@ -61,8 +62,9 @@ public class TCPClient : NetworkManager
         if(IsChangingScene == true)
         {
             udpRef.IsSceneChanged = true;
-            SceneManager.LoadScene("Main", LoadSceneMode.Single);
+            SceneManager.LoadScene("NetworkingTestScene", LoadSceneMode.Single);
             DontDestroyOnLoad(udpConnections);
+            DontDestroyOnLoad(chatCanvas);
         }
     }
 
@@ -103,7 +105,7 @@ public class TCPClient : NetworkManager
 
     void Recieve()
     {
-       
+        
         stream = client.GetStream();
         // Buffer to store the response bytes.
 
@@ -121,23 +123,38 @@ public class TCPClient : NetworkManager
 
     void OnRead(IAsyncResult ar)
     {
-       int msgLength = stream.EndRead(ar);
+        PortNumber portmsg;
+        int msgLength = stream.EndRead(ar);
 
-        IsChangingScene = true;
+        portmsg = DeserializeStruct<PortNumber>(data);
+
+        udpRef.playersPort[0] = portmsg.Client1_UDP_port;
+        udpRef.playersPort[1] = portmsg.Client2_UDP_port;
+        udpRef.playersPort[2] = portmsg.Client3_UDP_port;
+        udpRef.playersPort[3] = portmsg.Client4_UDP_port;
+
+        if(udpRef.playersPort.Length == 4)
+        {
+           IsChangingScene = true;
+
+        }
+
+        //print("Udp Port Recieved" + portmsg.Client1_UDP_port.ToString());
+
 
         //ClientPortNumber = DeserializeStruct<PortNumber>(data);
 
         //print("Response: " + ClientPortNumber.ToString());
 
-        String responseData = String.Empty;
+        //String responseData = String.Empty;
 
-        responseData = System.Text.Encoding.ASCII.GetString(data, 0, msgLength);
+        //responseData = System.Text.Encoding.ASCII.GetString(data, 0, msgLength);
 
-        //int responseData = ByteArrayToObject(data);
+        ////int responseData = ByteArrayToObject(data);
 
-        print("Response: " +  responseData.ToString());
+        //print("Response: " +  responseData.ToString());
 
-        Recived_UDP_Port.Add(Int32.Parse (responseData));
+        //Recived_UDP_Port.Add(Int32.Parse (responseData));
 
         stream.BeginRead(data, 0, data.Length, OnRead, null);
 

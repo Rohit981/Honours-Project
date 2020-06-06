@@ -32,11 +32,9 @@ public class Lobby : NetworkManager
     TcpClient tcpClients;
 
     public Int32 udpPort;
+    public Int32 udpPort2;
 
-    public struct PortNumber
-    {
-        public List<int> ClientUDPports ;
-    }
+   
 
     private PortNumber ClientPortNumber;
 
@@ -57,7 +55,7 @@ public class Lobby : NetworkManager
 
         server.BeginAcceptTcpClient(OnServerConnect, null);
 
-       ClientPortNumber.ClientUDPports = new List<int>();
+       //ClientPortNumber.ClientUDPports = new List<int>();
             
     }
 
@@ -79,13 +77,13 @@ public class Lobby : NetworkManager
 
             //byte[] msg = System.Text.Encoding.ASCII.GetBytes(ClientPortNumber.ClientUDPports[i].ToString());
 
-            //Byte[] msg = new Byte[Marshal.SizeOf(ClientPortNumber)];
-            //SerializeStruct<PortNumber>(ClientPortNumber, ref msg, 0);
+            Byte[] msg = new Byte[Marshal.SizeOf(ClientPortNumber)];
+            SerializeStruct<PortNumber>(ClientPortNumber, ref msg, 0);
 
-            int[] msgArray = ClientPortNumber.ClientUDPports.ToArray();
+            //int[] msgArray = ClientPortNumber.ClientUDPports.ToArray();
 
-            byte[] msg = new byte[msgArray.Length * 4];
-            Buffer.BlockCopy(msgArray, 0, msg, 0, msg.Length);
+            //byte[] msg = new byte[msgArray.Length * 4];
+            //Buffer.BlockCopy(msgArray, 0, msg, 0, msg.Length);
 
             //byte[] msg = ObjectToByteArray(ClientPortNumber.ClientUDPports);
 
@@ -107,7 +105,32 @@ public class Lobby : NetworkManager
 
         print("Data Recived: " + data);
 
-        udpPort = Int32.Parse(data);
+       //The code needs to be changed for recieving the clients port
+
+        if (ClientsConnected.Count == 1)
+        {
+           ClientPortNumber.Client1_UDP_port = Int32.Parse(data);
+
+        }
+
+        else if(ClientsConnected.Count == 2)
+        {
+            ClientPortNumber.Client2_UDP_port = Int32.Parse(data);
+            
+        }
+
+        else if (ClientsConnected.Count == 3)
+        {
+            ClientPortNumber.Client3_UDP_port = Int32.Parse(data);
+
+        }
+
+        else if (ClientsConnected.Count == 4)
+        {
+            ClientPortNumber.Client4_UDP_port = Int32.Parse(data);
+
+        }
+
 
     }
 
@@ -123,9 +146,9 @@ public class Lobby : NetworkManager
 
         Recieve();
 
-        ClientPortNumber.ClientUDPports.Add(udpPort);
+        //ClientPortNumber.ClientUDPports.Add(udpPort);
 
-        if (ports.Count == 1)
+        if (ports.Count == 4)
         {
             
             Sent();

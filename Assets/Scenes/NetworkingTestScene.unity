@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &300852190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1021310891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +253,8 @@ MonoBehaviour:
   RecievedText: {fileID: 0}
   Port: 5557
   ConnectionPort: 5558
+  udpPort: 0
+  lobbyUDP: {fileID: 0}
 --- !u!4 &1021310892
 Transform:
   m_ObjectHideFlags: 0
@@ -588,7 +590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2017582754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,6 +607,8 @@ MonoBehaviour:
   RecievedText: {fileID: 0}
   Port: 5600
   ConnectionPort: 5558
+  udpPort: 0
+  lobbyUDP: {fileID: 0}
 --- !u!4 &2017582755
 Transform:
   m_ObjectHideFlags: 0
