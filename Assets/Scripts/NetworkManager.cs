@@ -45,9 +45,9 @@ public class NetworkManager : MonoBehaviour
     }
 
     
-    List<float> Client_positionX = new List<float>();
-    float Client_positionY;
-    List<int> Client_scaleX = new List<int>();
+    public List<float> Client_positionX = new List<float>();
+    public float Client_positionY;
+    public List<int> Client_scaleX = new List<int>();
     public ClientConnection[] players = new ClientConnection[4];
 
     public List<IPAddress> IpAdresses = new List<IPAddress>();
@@ -71,17 +71,7 @@ public class NetworkManager : MonoBehaviour
     {
         print("Network Manager started");
 
-        //Initialize Positions for client in X axis
-        Client_positionX.Add(-9.11f);
-        Client_positionX.Add(9.22f);
-
-      
-        //Initialize Position for client in Y axis
-        Client_positionY = 23.3f;
-
-        //Initializing the Client Scale in order to initialize there rotation value
-        Client_scaleX.Add(1);
-        Client_scaleX.Add(-1);
+       
 
         players[0].port = 5556;
         players[1].port = 5557;
