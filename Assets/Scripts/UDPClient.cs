@@ -72,33 +72,7 @@ public class UDPClient : NetworkManager
         Recieve();
     }
 
-   void PortNumberSend()
-    {
-        foreach (Int32 c in lobbyUDP.playersPort)
-        {
-            //Initializing port value and client instance
-            //udpClient = new UdpClient(c);
 
-            //Connecting client to the port
-            //lobbyUDP.udpClient.Connect("127.0.0.1", lobbyUDP.playersPort[0]);
-            //lobbyUDP.udpClient.Connect("127.0.0.1", lobbyUDP.playersPort[1]);
-            //lobbyUDP.udpClient.Connect("127.0.0.1", lobbyUDP.playersPort[2]);
-            //lobbyUDP.udpClient.Connect("127.0.0.1", lobbyUDP.playersPort[3]);
-
-            byte[] sendBytes = Encoding.ASCII.GetBytes(c.ToString());
-
-            lobbyUDP.udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", c, SendCallback, lobbyUDP.udpClient);
-
-            print("Connected Port" + c.ToString());
-
-            Port = c;
-
-
-        }
-    }
-
-    
-    
 
     void JumpingSendInput()
     {
@@ -116,7 +90,7 @@ public class UDPClient : NetworkManager
             //InputText.text = "Pressed Input";
 
             //udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5557 , SendCallback, null);
-            lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length);
+            lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1",);
 
         }
     }
@@ -154,6 +128,23 @@ public class UDPClient : NetworkManager
         //Initializing the Client Scale in order to initialize there rotation value
         Client_scaleX.Add(1);
         Client_scaleX.Add(-1);
+
+       
+        if(lobbyUDP.playersTeamID[0] == 1 )
+        {
+            Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
+        }
+
+        if (lobbyUDP.playersTeamID[0] == 2)
+        {
+            Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY), Quaternion.identity);
+        }
+
+    }
+
+    void SendAll()
+    {
+        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1",);
     }
 
     static InputStruct[] ParseBytes(byte[] receiveBytes)

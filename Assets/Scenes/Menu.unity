@@ -190,6 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   udpPort: 0
   playersPort: 00000000000000000000000000000000
+  playersTeamID: 00000000000000000000000000000000
 --- !u!1 &21232989
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,10 +38,18 @@ public class NetworkManager : MonoBehaviour
     {
         //public List<int> ClientUDPports ;
 
+        //UDP port Variables
         public Int32 Client1_UDP_port;
         public Int32 Client2_UDP_port;
         public Int32 Client3_UDP_port;
         public Int32 Client4_UDP_port;
+
+        //Client Team ID
+        public int Team1ID;
+        public int Team2ID;
+        public int Team3ID;
+        public int Team4ID;
+
     }
 
     
