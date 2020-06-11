@@ -11,7 +11,7 @@ using System.Text;
 public class UDPClient : NetworkManager
 {
     //Client and port variables   
-    private Int32 UDP_port;
+    private Int32 UDP_port;   
     private float SendCounter;
     List<InputStruct> inputs;
     InputStruct inputMsg;
@@ -23,8 +23,6 @@ public class UDPClient : NetworkManager
     public Int32 udpPort;
 
     public LobbyUDPClient lobbyUDP;
-
-    UdpClient[] connectedClients = new UdpClient[4];
 
     public GameObject[] charachters = new GameObject[2];
 
@@ -44,7 +42,7 @@ public class UDPClient : NetworkManager
 
         //UDP_port = 5557;
 
-        PortNumberSend();
+        //PortNumberSend();
 
         //SpawnPlayers();
 
@@ -90,7 +88,7 @@ public class UDPClient : NetworkManager
             //InputText.text = "Pressed Input";
 
             //udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5557 , SendCallback, null);
-            lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1",);
+            SendAll(sendBytes);
 
         }
     }
@@ -142,9 +140,12 @@ public class UDPClient : NetworkManager
 
     }
 
-    void SendAll()
+    void SendAll(Byte[] sendBytes)
     {
-        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1",);
+        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[0]);
+        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[1]);
+        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[2]);
+        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[3]);
     }
 
     static InputStruct[] ParseBytes(byte[] receiveBytes)

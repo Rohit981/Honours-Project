@@ -77,7 +77,7 @@ public class TCPClient : NetworkManager
 
         print("TCP client Connected");
 
-        udpRef.SendUDPPort(serverIP, Port);
+        udpRef.SendUDPPort();
 
         IsReceiveing = true;
 

@@ -25,7 +25,7 @@ public class LobbyUDPClient : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        udpClient = new UdpClient();
+        udpClient = new UdpClient(0);
         udp = GetComponent<UDPClient>();
     }
 
@@ -36,12 +36,13 @@ public class LobbyUDPClient : MonoBehaviour
         {
             udp.enabled = true;
             this.enabled = false;
+            
         }
     }
 
-    public void SendUDPPort(String serverIP, Int32 Port)
+    public void SendUDPPort()
     {
-        udpClient.Connect(serverIP, Port);
+
         udpPort = ((IPEndPoint)udpClient.Client.LocalEndPoint).Port;
     }
 }
