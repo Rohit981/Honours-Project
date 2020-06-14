@@ -380,8 +380,6 @@ MonoBehaviour:
   Client_positionY: 0
   Client_scaleX: 
   ports: 
-  udpPort: 0
-  udpPort2: 0
 --- !u!4 &382394860
 Transform:
   m_ObjectHideFlags: 0

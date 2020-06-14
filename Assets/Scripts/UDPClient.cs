@@ -40,11 +40,7 @@ public class UDPClient : NetworkManager
 
         SendCounter = 0f;
 
-        //UDP_port = 5557;
-
-        //PortNumberSend();
-
-        //SpawnPlayers();
+        SpawnPlayers();
 
         inputMsg = new InputStruct();
     }
@@ -60,8 +56,7 @@ public class UDPClient : NetworkManager
 
         if(SendCounter >= 0.048)
         {
-            //print("Entered Send state");
-          
+
             JumpingSendInput();
             SendCounter = 0;
                       
@@ -85,9 +80,6 @@ public class UDPClient : NetworkManager
 
             sendBytes[0] = 0;
 
-            //InputText.text = "Pressed Input";
-
-            //udpClient.BeginSend(sendBytes, sendBytes.Length, "127.0.0.1", 5557 , SendCallback, null);
             SendAll(sendBytes);
 
         }
@@ -133,7 +125,7 @@ public class UDPClient : NetworkManager
             Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
         }
 
-        if (lobbyUDP.playersTeamID[0] == 2)
+        if (lobbyUDP.playersTeamID[1] == 2)
         {
             Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY), Quaternion.identity);
         }

@@ -21,8 +21,6 @@ public class Lobby : NetworkManager
 
     public List <TcpClient> ClientsConnected = new List<TcpClient>();
 
-    //public List<TCPClient> clients = new List<TCPClient>();
-
     public List<Int32> ports = new List<Int32>();
 
     string ClientPortMessage = "Hello";
@@ -30,11 +28,6 @@ public class Lobby : NetworkManager
     Ping ping;
 
     TcpClient tcpClients;
-
-    public Int32 udpPort;
-    public Int32 udpPort2;
-
-   
 
     private PortNumber ClientPortNumber;
 
@@ -54,18 +47,11 @@ public class Lobby : NetworkManager
         bytes = new Byte[256];
 
         server.BeginAcceptTcpClient(OnServerConnect, null);
-
-       //ClientPortNumber.ClientUDPports = new List<int>();
-            
+       
     }
 
     // Update is called once per frame
-    void Update()
-    {
-       
-        //SendData();
-    }
-
+   
     void Sent()
     {
 
@@ -75,17 +61,8 @@ public class Lobby : NetworkManager
             NetworkStream stream = ClientsConnected[i].GetStream();
             data = null;
 
-            //byte[] msg = System.Text.Encoding.ASCII.GetBytes(ClientPortNumber.ClientUDPports[i].ToString());
-
             Byte[] msg = new Byte[Marshal.SizeOf(ClientPortNumber)];
             SerializeStruct<PortNumber>(ClientPortNumber, ref msg, 0);
-
-            //int[] msgArray = ClientPortNumber.ClientUDPports.ToArray();
-
-            //byte[] msg = new byte[msgArray.Length * 4];
-            //Buffer.BlockCopy(msgArray, 0, msg, 0, msg.Length);
-
-            //byte[] msg = ObjectToByteArray(ClientPortNumber.ClientUDPports);
 
             // Send back a response.            
             stream.Write(msg, 0, msg.Length);
@@ -146,14 +123,11 @@ public class Lobby : NetworkManager
 
 
         ClientsConnected.Add(tcpClients);
-        ports.Add(((IPEndPoint)tcpClients.Client.RemoteEndPoint).Port);
         IpAdresses.Add(((IPEndPoint)tcpClients.Client.RemoteEndPoint).Address);
 
         Recieve();
 
-        //ClientPortNumber.ClientUDPports.Add(udpPort);
-
-        if (ports.Count == 4)
+        if (ClientsConnected.Count == 4)
         {
             
             Sent();
@@ -167,18 +141,6 @@ public class Lobby : NetworkManager
 
         }
 
-    }
-
-   
-
-    public static byte[] ObjectToByteArray(List<int> obj)
-    {
-        BinaryFormatter bf = new BinaryFormatter();
-        using (var ms = new MemoryStream())
-        {
-            bf.Serialize(ms, obj);
-            return ms.ToArray();
-        }
     }
 
 
