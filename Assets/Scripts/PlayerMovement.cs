@@ -13,27 +13,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     private BoxCollider2D boxcollider2D;
     internal bool IsFacingRight;
-    [SerializeField] private string Horizontal;
-    [SerializeField] private string JumpButton;
-    [SerializeField] private Camera otherPlayerCamera;
-    private Camera posesedPlayerCamera;
-  
+    internal bool IsRefMe = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxcollider2D = GetComponent<BoxCollider2D>();
-        posesedPlayerCamera = GetComponentInChildren<Camera>();
-       
+
         //IsGrounded = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-       
-        MovementInput();
+       if(IsRefMe == true)
+        {
+          MovementInput();
+
+        }
 
     }
 
@@ -42,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     void MovementInput()
     {
 
-        float Movement = Input.GetAxis(Horizontal) * speed * Time.deltaTime;
+        float Movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 
         transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
              
@@ -56,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 characterScale = transform.localScale;
 
-        if(Input.GetAxis(Horizontal) > 0)
+        if(Input.GetAxis("Horizontal") > 0)
         {
             //sprite.flipX = false;
             characterScale.x = 1;
@@ -66,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
         }       
 
-        else if (Input.GetAxis(Horizontal) < 0)
+        else if (Input.GetAxis("Horizontal") < 0)
         {
             //sprite.flipX = true;
             characterScale.x = -1;    
@@ -119,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (Input.GetAxis(JumpButton) > 0  && IsGrounded == true)
+        if (Input.GetAxis("Jump") > 0  && IsGrounded == true)
         {
             rb.AddForce(Vector2.up * JumpHeight);
         }

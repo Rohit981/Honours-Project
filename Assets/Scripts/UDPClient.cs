@@ -24,7 +24,9 @@ public class UDPClient : NetworkManager
 
     public LobbyUDPClient lobbyUDP;
 
-    public GameObject[] charachters = new GameObject[2];
+    public PlayerMovement[] charachters = new PlayerMovement[2];
+
+    //private PlayerMovement InstantedPlayer;
 
 
     public struct UdpState
@@ -43,6 +45,8 @@ public class UDPClient : NetworkManager
         SpawnPlayers();
 
         inputMsg = new InputStruct();
+
+      
     }
 
     // Update is called once per frame
@@ -70,7 +74,7 @@ public class UDPClient : NetworkManager
     void JumpingSendInput()
     {
 
-        if (Input.GetAxis("Jump1") > 0)
+        if (Input.GetAxis("Jump") > 0)
         {
 
              inputMsg.Jump = 1;
@@ -115,20 +119,30 @@ public class UDPClient : NetworkManager
         //Initialize Position for client in Y axis
         Client_positionY = 23.3f;
 
-        //Initializing the Client Scale in order to initialize there rotation value
-        Client_scaleX.Add(1);
-        Client_scaleX.Add(-1);
-
-       
-        if(lobbyUDP.playersTeamID[0] == 1 )
+        if(lobbyUDP.teamID == 1 )
         {
+            PlayerMovement newPlayer =  Instantiate<PlayerMovement> (charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
+
+            newPlayer.IsRefMe = true;
+
+            Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY), Quaternion.identity);
+
+        }
+
+
+        if (lobbyUDP.teamID == 2)
+        {
+            PlayerMovement newPlayer2 = Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY), Quaternion.identity);
+            newPlayer2.IsRefMe = true;
             Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
         }
 
-        if (lobbyUDP.playersTeamID[1] == 2)
-        {
-            Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY), Quaternion.identity);
-        }
+        //else
+        //{
+
+        //    Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
+
+        //}
 
     }
 

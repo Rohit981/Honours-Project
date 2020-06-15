@@ -55,7 +55,6 @@ public class NetworkManager : MonoBehaviour
     
     public List<float> Client_positionX = new List<float>();
     public float Client_positionY;
-    public List<int> Client_scaleX = new List<int>();
     public ClientConnection[] players = new ClientConnection[4];
 
     public List<IPAddress> IpAdresses = new List<IPAddress>();

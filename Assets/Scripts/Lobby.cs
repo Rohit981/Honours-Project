@@ -31,6 +31,9 @@ public class Lobby : NetworkManager
 
     private PortNumber ClientPortNumber;
 
+    private float changeSceneTimer = 0;
+
+    private bool startTimer = false;
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +54,23 @@ public class Lobby : NetworkManager
     }
 
     // Update is called once per frame
-   
+
+    private void Update()
+    {
+        if(startTimer == true)
+        {
+            changeSceneTimer += Time.deltaTime;
+        }
+
+        if(changeSceneTimer >= 1f)
+        {
+            Sent();
+            print("All clients Connected");
+            server.Stop();
+
+        }
+    }
+
     void Sent()
     {
 
@@ -116,6 +135,41 @@ public class Lobby : NetworkManager
 
     }
 
+    void SendTeamID()
+    {
+        NetworkStream stream = tcpClients.GetStream();
+
+
+        if (ClientsConnected.Count == 1)
+        {
+            Byte[] msg = System.Text.Encoding.ASCII.GetBytes(1.ToString());
+
+            stream.Write(msg, 0, msg.Length);
+
+        }
+
+        else if(ClientsConnected.Count == 2)
+        {
+            Byte[] msg2 = System.Text.Encoding.ASCII.GetBytes(2.ToString());
+
+            stream.Write(msg2, 0, msg2.Length);
+        }
+
+        else if (ClientsConnected.Count == 3)
+        {
+            Byte[] msg3 = System.Text.Encoding.ASCII.GetBytes(3.ToString());
+
+            stream.Write(msg3, 0, msg3.Length);
+        }
+
+        else if (ClientsConnected.Count == 4)
+        {
+            Byte[] msg4 = System.Text.Encoding.ASCII.GetBytes(4.ToString());
+
+            stream.Write(msg4, 0, msg4.Length);
+        }
+    }
+
     void OnServerConnect(IAsyncResult ar)
     {
 
@@ -127,12 +181,12 @@ public class Lobby : NetworkManager
 
         Recieve();
 
-        if (ClientsConnected.Count == 4)
+        SendTeamID();
+
+        if (ClientsConnected.Count == 2)
         {
-            
-            Sent();
-            print("All clients Connected");
-            server.EndAcceptTcpClient(ar);
+
+            startTimer = true;
 
         }
         else

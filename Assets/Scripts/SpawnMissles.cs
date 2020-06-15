@@ -20,14 +20,18 @@ public class SpawnMissles : MonoBehaviour
         shootRate += Time.deltaTime;
         if (shootRate >= 1f)
         {
-            Shooting();
+            if(player.IsRefMe == true)
+            {
+               Shooting();
+
+            }
            
         }
     }
 
     void Shooting()
     {
-        if (Input.GetAxis("Fire1") > 0 && player.IsFacingRight == true)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && player.IsFacingRight == true)
         {
             player.anim.SetBool("IsIdleShooting", true);
             Instantiate(Missile, transform.position, Quaternion.Euler(0, 0, -90));
@@ -35,7 +39,7 @@ public class SpawnMissles : MonoBehaviour
 
         }
 
-        else if (Input.GetAxis("Fire1") > 0 && player.IsFacingRight == false)
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && player.IsFacingRight == false)
         {
             player.anim.SetBool("IsIdleShooting", true);
             Instantiate(Missile, transform.position, Quaternion.Euler(0, 0, 90));

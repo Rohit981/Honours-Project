@@ -16,12 +16,14 @@ using System.IO;
 public class TCPClient : NetworkManager
 {
     private TcpClient client;
-    private string message = "Message Sent";
 
     private Button button;
 
     NetworkStream stream;
     Byte[] data;
+    Byte[] Teamdata;
+
+    [SerializeField] private string sceneName;
    
 
     bool IsReceiveing = false;
@@ -33,21 +35,22 @@ public class TCPClient : NetworkManager
     public GameObject udpConnections;
     public GameObject chatCanvas;
 
-    
-
+   
     public Int32 udpPort;
 
-    public List<Int32> Recived_UDP_Port = new List<Int32>(); 
+    public List<Int32> Recived_UDP_Port = new List<Int32>();
 
-    
+    [SerializeField] private Text RecieveText;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         button = GetComponentInChildren<Button>();
         data = new Byte[256];
-       
-        
+        Teamdata = new Byte[256];
+
     }
 
     // Update is called once per frame
@@ -55,14 +58,16 @@ public class TCPClient : NetworkManager
     {
         if(IsReceiveing == true)
         {
+            RecieveTeamID();
+            RecieveText.text = "Team ID:" + udpRef.teamID;
             Recieve();
-
         }
 
         if(IsChangingScene == true)
         {
             udpRef.IsSceneChanged = true;
-            SceneManager.LoadScene("NetworkingTestScene", LoadSceneMode.Single);
+            client.Close();
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
             DontDestroyOnLoad(udpConnections);
             DontDestroyOnLoad(chatCanvas);
         }
@@ -79,10 +84,9 @@ public class TCPClient : NetworkManager
 
         udpRef.SendUDPPort();
 
-        IsReceiveing = true;
-
         Send();
 
+        IsReceiveing = true;
         //Recieve();
 
         button.enabled = false;
@@ -96,11 +100,6 @@ public class TCPClient : NetworkManager
 
         stream.Write(msg, 0, msg.Length);
 
-        //print("Sent: " + udpPort.ToString());
-        //// Send the message to the connected TcpServer.
-        //stream.Write(data, 0, data.Length);
-
-        //print( message);
     }
 
     void Recieve()
@@ -111,14 +110,27 @@ public class TCPClient : NetworkManager
 
         stream.BeginRead(data, 0, data.Length, OnRead, null);
 
-        //Int32 bytes_value = stream.Read(data, 0, data.Length);
+    }
 
-       
+    void RecieveTeamID()
+    {
+        stream = client.GetStream();
+        // Buffer to store the response bytes.
 
-       
+        stream.BeginRead(Teamdata, 0, Teamdata.Length, ReadTeamID, client);
+    }
 
-        //print("Response: " + msg);
+    void ReadTeamID(IAsyncResult ar)
+    {
+        int msgLength = stream.EndRead(ar);
 
+        String responseData = String.Empty;
+
+        responseData = System.Text.Encoding.ASCII.GetString(Teamdata, 0, msgLength);
+
+        udpRef.teamID = int.Parse(responseData);
+
+        stream.BeginRead(Teamdata, 0, Teamdata.Length, ReadTeamID, client);
     }
 
     void OnRead(IAsyncResult ar)
@@ -144,44 +156,9 @@ public class TCPClient : NetworkManager
 
         }
 
-        //print("Udp Port Recieved" + portmsg.Client1_UDP_port.ToString());
-
-
-        //ClientPortNumber = DeserializeStruct<PortNumber>(data);
-
-        //print("Response: " + ClientPortNumber.ToString());
-
-        //String responseData = String.Empty;
-
-        //responseData = System.Text.Encoding.ASCII.GetString(data, 0, msgLength);
-
-        ////int responseData = ByteArrayToObject(data);
-
-        //print("Response: " +  responseData.ToString());
-
-        //Recived_UDP_Port.Add(Int32.Parse (responseData));
-
         stream.BeginRead(data, 0, data.Length, OnRead, null);
 
-
-        //if(responseData == "Hello")
-        //{
-        //    IsChangingScene = true;
-        //}
-
-      
-
     }
 
-    public static int ByteArrayToObject(byte[] arrBytes)
-    {
-        using (var memStream = new MemoryStream())
-        {
-            BinaryFormatter binForm = new BinaryFormatter();
-            memStream.Write(arrBytes, 0, arrBytes.Length);
-            memStream.Seek(0, SeekOrigin.Begin);
-            int obj =  (int) binForm.Deserialize(memStream);
-            return obj;
-        }
-    }
+  
 }

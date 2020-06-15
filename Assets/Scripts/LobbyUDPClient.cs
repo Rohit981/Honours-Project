@@ -12,6 +12,7 @@ public class LobbyUDPClient : MonoBehaviour
 {
 
     internal UdpClient udpClient;
+    public int teamID = 0;
 
     public Int32 udpPort;
 
