@@ -12,7 +12,7 @@ public class LobbyUDPClient : MonoBehaviour
 {
 
     internal UdpClient udpClient;
-    public int teamID = 0;
+    public byte teamID = 0;
 
     public Int32 udpPort;
 
@@ -21,7 +21,6 @@ public class LobbyUDPClient : MonoBehaviour
     private UDPClient udp;
 
     public Int32[] playersPort = new Int32[4];
-    public int[] playersTeamID = new int[4];
 
     // Start is called before the first frame update
     void Start()

@@ -16,18 +16,15 @@ public class UDPClient : NetworkManager
     List<InputStruct> inputs;
     InputStruct inputMsg;
     [SerializeField] private Text InputText;
-    [SerializeField] private Text RecievedText;
-    [SerializeField] private Int32 Port;
-    [SerializeField] private Int32 ConnectionPort;
+    [SerializeField] private Canvas mainCanvas;
+    [SerializeField] private Text ObjectIDText;
+    [SerializeField] private Text JumpInputText;
 
     public Int32 udpPort;
 
     public LobbyUDPClient lobbyUDP;
 
     public PlayerMovement[] charachters = new PlayerMovement[2];
-
-    //private PlayerMovement InstantedPlayer;
-
 
     public struct UdpState
     {
@@ -39,6 +36,9 @@ public class UDPClient : NetworkManager
     void Start()
     {
         lobbyUDP = GetComponent<LobbyUDPClient>();
+
+        ObjectIDText =  mainCanvas.GetComponentInChildren<Text>();
+        JumpInputText =  mainCanvas.GetComponentInChildren<Text>();
 
         SendCounter = 0f;
 
@@ -77,9 +77,10 @@ public class UDPClient : NetworkManager
         if (Input.GetAxis("Jump") > 0)
         {
 
+             inputMsg.ObjectID = lobbyUDP.teamID;
              inputMsg.Jump = 1;
 
-            Byte[] sendBytes = new Byte[1 + Marshal.SizeOf(inputMsg)];
+            Byte[] sendBytes = new Byte[Marshal.SizeOf(inputMsg)];
             SerializeStruct<InputStruct>(inputMsg, ref sendBytes, 0);
 
             sendBytes[0] = 0;
@@ -122,7 +123,6 @@ public class UDPClient : NetworkManager
         if(lobbyUDP.teamID == 1 )
         {
             PlayerMovement newPlayer =  Instantiate<PlayerMovement> (charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
-
             newPlayer.IsRefMe = true;
 
             Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY), Quaternion.identity);
@@ -132,17 +132,11 @@ public class UDPClient : NetworkManager
 
         if (lobbyUDP.teamID == 2)
         {
-            PlayerMovement newPlayer2 = Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY), Quaternion.identity);
+            PlayerMovement newPlayer2 = Instantiate<PlayerMovement> (charachters[1], new Vector2(Client_positionX[1], Client_positionY), Quaternion.identity);
             newPlayer2.IsRefMe = true;
+
             Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
         }
-
-        //else
-        //{
-
-        //    Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
-
-        //}
 
     }
 
@@ -168,12 +162,12 @@ public class UDPClient : NetworkManager
         switch (messageID)
         {
             case 0:
-                ////For each message we've been told to receive, unpack it.
-                //for (int i = 0; i < msgArray.Length; i++)
-                //{
-                //    //msgArray[i] = DeserializeStruct<InputStruct>(receiveBytes, 2 + (i * Marshal.SizeOf(typeof(InputStruct))));
-                //}
-                
+                //For each message we've been told to receive, unpack it.
+                for (int i = 0; i < msgArray.Length; i++)
+                {
+                    msgArray[i] = DeserializeStruct<InputStruct>(receiveBytes, i * Marshal.SizeOf(typeof(InputStruct)));
+                }
+
                 print("Jump Button Recieved");
                 break;
             case 1:

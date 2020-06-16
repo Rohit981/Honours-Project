@@ -106,29 +106,24 @@ public class Lobby : NetworkManager
         if (ClientsConnected.Count == 1)
         {
            ClientPortNumber.Client1_UDP_port = Int32.Parse(data);
-            ClientPortNumber.Team1ID = 1;
+           
         }
 
         else if(ClientsConnected.Count == 2)
         {
             ClientPortNumber.Client2_UDP_port = Int32.Parse(data);
-            ClientPortNumber.Team2ID = 2;
 
         }
 
         else if (ClientsConnected.Count == 3)
         {
             ClientPortNumber.Client3_UDP_port = Int32.Parse(data);
-            ClientPortNumber.Team3ID = 3;
-
-
+ 
         }
 
         else if (ClientsConnected.Count == 4)
         {
             ClientPortNumber.Client4_UDP_port = Int32.Parse(data);
-            ClientPortNumber.Team4ID = 4;
-
 
         }
 

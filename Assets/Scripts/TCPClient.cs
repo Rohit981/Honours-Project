@@ -128,7 +128,7 @@ public class TCPClient : NetworkManager
 
         responseData = System.Text.Encoding.ASCII.GetString(Teamdata, 0, msgLength);
 
-        udpRef.teamID = int.Parse(responseData);
+        udpRef.teamID = byte.Parse(responseData);
 
         stream.BeginRead(Teamdata, 0, Teamdata.Length, ReadTeamID, client);
     }
@@ -144,11 +144,6 @@ public class TCPClient : NetworkManager
         udpRef.playersPort[1] = portmsg.Client2_UDP_port;
         udpRef.playersPort[2] = portmsg.Client3_UDP_port;
         udpRef.playersPort[3] = portmsg.Client4_UDP_port;
-
-        udpRef.playersTeamID[0] = portmsg.Team1ID;
-        udpRef.playersTeamID[1] = portmsg.Team2ID;
-        udpRef.playersTeamID[2] = portmsg.Team3ID;
-        udpRef.playersTeamID[3] = portmsg.Team4ID;
 
         if(udpRef.playersPort.Length == 4)
         {

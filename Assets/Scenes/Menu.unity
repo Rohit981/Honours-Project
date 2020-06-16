@@ -153,9 +153,10 @@ MonoBehaviour:
   Client_positionX: []
   Client_positionY: 0
   InputText: {fileID: 118141018}
-  RecievedText: {fileID: 0}
-  Port: 0
-  ConnectionPort: 0
+  mainCanvas: {fileID: 4685966248479095934, guid: 0e5522b7c0299064c9556cb2f03ff0dc,
+    type: 3}
+  ObjectIDText: {fileID: 0}
+  JumpInputText: {fileID: 0}
   udpPort: 0
   lobbyUDP: {fileID: 0}
   charachters:
@@ -190,7 +191,6 @@ MonoBehaviour:
   teamID: 0
   udpPort: 0
   playersPort: 00000000000000000000000000000000
-  playersTeamID: 00000000000000000000000000000000
 --- !u!1 &21232989
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &382394859
 MonoBehaviour:
   m_ObjectHideFlags: 0
