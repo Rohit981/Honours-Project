@@ -15,6 +15,8 @@ public class NetworkManager : MonoBehaviour
    {
        public byte ObjectID; 
        public byte Jump;
+        //movement
+        sbyte move;
    }
 
    

@@ -83,7 +83,7 @@ public class UDPClient : NetworkManager
             Byte[] sendBytes = new Byte[Marshal.SizeOf(inputMsg)];
             SerializeStruct<InputStruct>(inputMsg, ref sendBytes, 0);
 
-            sendBytes[0] = 0;
+            //sendBytes[0] = 0;
 
             SendAll(sendBytes);
 
@@ -157,18 +157,20 @@ public class UDPClient : NetworkManager
 
         //ServerTime = DeserializeStruct<int>(receiveBytes, 2);    //3-7 bytes are the timein milliseconds
 
+        for (int i = 0; i < msgArray.Length; i++)
+        {
+            msgArray[i] = DeserializeStruct<InputStruct>(receiveBytes, i * Marshal.SizeOf(typeof(InputStruct)));
+        }
+
+
+
+        print("Jump Button Recieved");
 
         
         switch (messageID)
         {
             case 0:
                 //For each message we've been told to receive, unpack it.
-                for (int i = 0; i < msgArray.Length; i++)
-                {
-                    msgArray[i] = DeserializeStruct<InputStruct>(receiveBytes, i * Marshal.SizeOf(typeof(InputStruct)));
-                }
-
-                print("Jump Button Recieved");
                 break;
             case 1:
                 //print("Shooting");
