@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnNinjaStar : MonoBehaviour
 {
     [SerializeField] private GameObject ninjaStar;
+    [SerializeField] private InputManager input;
     private PlayerMovement player;
     private float shootRate;
     // Start is called before the first frame update
@@ -12,6 +13,7 @@ public class SpawnNinjaStar : MonoBehaviour
     {
         player = GetComponentInParent<PlayerMovement>();
         shootRate = 1f;
+        input = FindObjectOfType<InputManager>();
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class SpawnNinjaStar : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && player.IsFacingRight == true)
+        if (input.IsAttackPressed == true && player.IsFacingRight == true)
         {
             player.anim.SetBool("IsShooting", true);
             Instantiate(ninjaStar, transform.position, Quaternion.Euler(0, 0, -90));
@@ -37,7 +39,7 @@ public class SpawnNinjaStar : MonoBehaviour
 
         }
 
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && player.IsFacingRight == false)
+        else if (input.IsAttackPressed == true && player.IsFacingRight == false)
         {
             player.anim.SetBool("IsShooting", true);
             Instantiate(ninjaStar, transform.position, Quaternion.Euler(0, 0, 90));

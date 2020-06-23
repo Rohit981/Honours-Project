@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnMissles : MonoBehaviour
 {
     [SerializeField] private GameObject Missile;
+    [SerializeField] private InputManager input;
     private PlayerMovement player;
     private float shootRate;
     // Start is called before the first frame update
@@ -12,6 +13,7 @@ public class SpawnMissles : MonoBehaviour
     {
         player = GetComponentInParent<PlayerMovement>();
         shootRate = 1f;
+        input = FindObjectOfType<InputManager>();
     }
 
     // Update is called once per frame
@@ -20,9 +22,9 @@ public class SpawnMissles : MonoBehaviour
         shootRate += Time.deltaTime;
         if (shootRate >= 1f)
         {
-            if(player.IsRefMe == true)
+            if (player.IsRefMe == true)
             {
-               Shooting();
+                Shooting();
 
             }
            
@@ -31,7 +33,7 @@ public class SpawnMissles : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && player.IsFacingRight == true)
+        if (input.IsAttackPressed == true && player.IsFacingRight == true)
         {
             player.anim.SetBool("IsIdleShooting", true);
             Instantiate(Missile, transform.position, Quaternion.Euler(0, 0, -90));
@@ -39,7 +41,7 @@ public class SpawnMissles : MonoBehaviour
 
         }
 
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && player.IsFacingRight == false)
+        else if (input.IsAttackPressed == true && player.IsFacingRight == false)
         {
             player.anim.SetBool("IsIdleShooting", true);
             Instantiate(Missile, transform.position, Quaternion.Euler(0, 0, 90));

@@ -14,22 +14,25 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxcollider2D;
     internal bool IsFacingRight;
     internal bool IsRefMe = false;
+    [SerializeField] private InputManager input;
+    private NetworkManager networkManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxcollider2D = GetComponent<BoxCollider2D>();
-
+        input = FindObjectOfType<InputManager>();
+        networkManager = FindObjectOfType<NetworkManager>();
         //IsGrounded = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-       if(IsRefMe == true)
+        if (IsRefMe == true)
         {
-          MovementInput();
+            MovementInput();
 
         }
 
@@ -54,23 +57,19 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 characterScale = transform.localScale;
 
-        if(Input.GetAxis("Horizontal") > 0)
+        if(input.IsForwardPressed == true)
         {
             //sprite.flipX = false;
             characterScale.x = 1;
             anim.SetBool("IsRunning", true);
-           
-           
 
         }       
 
-        else if (Input.GetAxis("Horizontal") < 0)
+        else if (input.IsBackPressed == true)
         {
             //sprite.flipX = true;
             characterScale.x = -1;    
             anim.SetBool("IsRunning", true);
-            
-            
 
         }
 
@@ -117,15 +116,22 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (Input.GetAxis("Jump") > 0  && IsGrounded == true)
+        if (input.IsJumpPressed == true  && IsGrounded == true )
         {
+            
             rb.AddForce(Vector2.up * JumpHeight);
+           
         }
 
 
         Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down*(boxcollider2D.bounds.extents.y + .05f), rayColor);
 
         //Debug.Log(hitInfo.collider);
+
+    }
+
+    void JumpRaycast()
+    {
 
     }
 

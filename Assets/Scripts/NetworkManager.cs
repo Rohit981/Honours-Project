@@ -15,8 +15,8 @@ public class NetworkManager : MonoBehaviour
    {
        public byte ObjectID; 
        public byte Jump;
-        //movement
-        sbyte move;
+       public sbyte Move;
+       public byte Attack;
    }
 
    
@@ -39,8 +39,6 @@ public class NetworkManager : MonoBehaviour
 
      public struct PortNumber
     {
-        //public List<int> ClientUDPports ;
-
         //UDP port Variables
         public Int32 Client1_UDP_port;
         public Int32 Client2_UDP_port;
@@ -53,7 +51,7 @@ public class NetworkManager : MonoBehaviour
     public List<float> Client_positionX = new List<float>();
     public float Client_positionY;
     public ClientConnection[] players = new ClientConnection[4];
-
+    public InputStruct input;
     public List<IPAddress> IpAdresses = new List<IPAddress>();
     
 

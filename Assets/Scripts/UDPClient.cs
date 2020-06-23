@@ -26,6 +26,13 @@ public class UDPClient : NetworkManager
 
     public PlayerMovement[] charachters = new PlayerMovement[2];
 
+    private NetworkManager networkManager;
+    private InputManager inputManager;
+
+    PlayerMovement newPlayer3;
+    PlayerMovement newPlayer4;
+   
+
     public struct UdpState
     {
         public UdpClient u;
@@ -46,7 +53,8 @@ public class UDPClient : NetworkManager
 
         inputMsg = new InputStruct();
 
-      
+        networkManager = FindObjectOfType<NetworkManager>();
+        inputManager = FindObjectOfType<InputManager>();
     }
 
     // Update is called once per frame
@@ -61,7 +69,7 @@ public class UDPClient : NetworkManager
         if(SendCounter >= 0.048)
         {
 
-            JumpingSendInput();
+            SendInput();
             SendCounter = 0;
                       
         }
@@ -71,23 +79,26 @@ public class UDPClient : NetworkManager
 
 
 
-    void JumpingSendInput()
+    void SendInput()
     {
+        //if (Input.GetAxis("Jump") > 0)
+        //{
+        //inputMsg.Jump = 1;
+        inputMsg.ObjectID = lobbyUDP.teamID;
 
-        if (Input.GetAxis("Jump") > 0)
-        {
+        inputMsg.Jump = networkManager.input.Jump;
+        inputMsg.Move = networkManager.input.Move;
+        inputMsg.Attack = networkManager.input.Attack;
 
-             inputMsg.ObjectID = lobbyUDP.teamID;
-             inputMsg.Jump = 1;
+        Byte[] sendBytes = new Byte[Marshal.SizeOf(inputMsg)];
+        SerializeStruct<InputStruct>(inputMsg, ref sendBytes, 0);
 
-            Byte[] sendBytes = new Byte[Marshal.SizeOf(inputMsg)];
-            SerializeStruct<InputStruct>(inputMsg, ref sendBytes, 0);
+        //sendBytes[0] = 0;
 
-            //sendBytes[0] = 0;
+        SendAll(sendBytes);
 
-            SendAll(sendBytes);
+        //}
 
-        }
     }
 
     void Recieve()
@@ -103,10 +114,16 @@ public class UDPClient : NetworkManager
         {
             byte[] b = lobbyUDP.udpClient.Receive(ref e);
 
-            InputStruct[] msgArray = ParseBytes(b);
+            //InputStruct[] msgArray = ParseBytes(b);
 
-            InputText.text = "Recieved Input";
+            InputStruct msg;
+            msg =  DeserializeStruct<InputStruct>(b);
 
+            InputText.text = "Recieved Input: " + msg.Jump;
+
+            //RecievedObjectID(msg);
+
+            RecievedInput(msg);
         }
     }
 
@@ -115,7 +132,6 @@ public class UDPClient : NetworkManager
         //Initialize Positions for client in X axis
         Client_positionX.Add(-9.11f);
         Client_positionX.Add(9.22f);
-
 
         //Initialize Position for client in Y axis
         Client_positionY = 23.3f;
@@ -135,7 +151,7 @@ public class UDPClient : NetworkManager
             PlayerMovement newPlayer2 = Instantiate<PlayerMovement> (charachters[1], new Vector2(Client_positionX[1], Client_positionY), Quaternion.identity);
             newPlayer2.IsRefMe = true;
 
-            Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
+           Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY), Quaternion.identity);
         }
 
     }
@@ -144,8 +160,8 @@ public class UDPClient : NetworkManager
     {
         lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[0]);
         lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[1]);
-        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[2]);
-        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[3]);
+        //lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[2]);
+        //lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[3]);
     }
 
     static InputStruct[] ParseBytes(byte[] receiveBytes)
@@ -204,5 +220,71 @@ public class UDPClient : NetworkManager
 
        
 
+    }
+
+    void RecievedInput(InputStruct msg)
+    {
+        if (msg.Jump == 1)
+        {
+            inputManager.IsJumpPressed = true;
+
+        }
+
+        else
+        {
+            inputManager.IsJumpPressed = false;
+
+        }
+
+        if (msg.Move == 1)
+        {
+            inputManager.IsForwardPressed = true;
+
+        }
+
+        else
+        {
+            inputManager.IsForwardPressed = false;
+
+        }
+
+        if (msg.Move == -1)
+        {
+            inputManager.IsBackPressed = true;
+
+        }
+
+        else
+        {
+            inputManager.IsBackPressed = false;
+
+        }
+
+        if (msg.Attack == 1)
+        {
+            inputManager.IsAttackPressed = true;
+
+        }
+
+        else
+        {
+            inputManager.IsAttackPressed = false;
+
+        }
+
+
+    }
+
+    void RecievedObjectID(InputStruct msg)
+    {
+        if(msg.ObjectID == 1)
+        {
+            newPlayer4.IsRefMe = true;
+        }
+
+        if (msg.ObjectID == 2)
+        {
+            newPlayer3.IsRefMe = true;
+        }
     }
 }

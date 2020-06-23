@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Missile: {fileID: 1812507318097722086, guid: 8dd9e4461f6848d47a9a8fa0a3c834f5, type: 3}
+  input: {fileID: 2550015047612838517, guid: 634baf8de80b7f1478e819c328cc0d80, type: 3}
 --- !u!1 &8388039712260537474
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +300,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  input: {fileID: 2550015047612838517, guid: 634baf8de80b7f1478e819c328cc0d80, type: 3}
 --- !u!114 &1312715297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,6 +322,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8388039712260537478}
     m_Modifications:
+    - target: {fileID: 770931937752605447, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
+        type: 3}
+      propertyPath: m_Name
+      value: RoboHealthBarCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 770931937752605446, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -424,11 +431,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 770931937752605447, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
-        type: 3}
-      propertyPath: m_Name
-      value: RoboHealthBarCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 770931937372396585, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
         type: 3}
