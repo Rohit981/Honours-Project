@@ -22,10 +22,10 @@ public class SpawnNinjaStar : MonoBehaviour
         shootRate += Time.deltaTime;
         if(shootRate >= 0.8f)
         {
-            if (player.IsRefMe == true)
-            {
+            //if (player.IsRefMe == true)
+            //{
                 Shooting();
-            }
+            //}
         }
     }
 

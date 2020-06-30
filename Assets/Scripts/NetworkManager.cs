@@ -49,7 +49,7 @@ public class NetworkManager : MonoBehaviour
 
     
     public List<float> Client_positionX = new List<float>();
-    public float Client_positionY;
+    public List<float> Client_positionY = new List<float>();
     public ClientConnection[] players = new ClientConnection[4];
     public InputStruct input;
     public List<IPAddress> IpAdresses = new List<IPAddress>();
@@ -65,23 +65,6 @@ public class NetworkManager : MonoBehaviour
     {
 
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
-    }
-
-
-
-    public void InitializeClientVariables()
-    {
-        print("Network Manager started");
-
-       
-
-        players[0].port = 5556;
-        players[1].port = 5557;
-        players[2].port = 5558;
-        players[3].port = 5559;
-
-      
-
     }
 
     //Generic function to serialize a struct into a byte array

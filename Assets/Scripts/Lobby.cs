@@ -178,7 +178,7 @@ public class Lobby : NetworkManager
 
         SendTeamID();
 
-        if (ClientsConnected.Count == 2)
+        if (ClientsConnected.Count == 4)
         {
 
             startTimer = true;
