@@ -115,7 +115,7 @@ public class UDPClient : NetworkManager
             InputStruct msg;
             msg =  DeserializeStruct<InputStruct>(b);
 
-            //RecievedInput(msg);
+            RecievedInput(msg);
 
         }
     }
@@ -154,25 +154,25 @@ public class UDPClient : NetworkManager
             newPlayer4 = Instantiate(charachters[3], new Vector2(Client_positionX[3], Client_positionY[1]), Quaternion.identity);
         }
 
-        if(lobbyUDP.teamID == 3)
-        {
-            newPlayer3 = Instantiate<PlayerMovement>(charachters[2], new Vector2(Client_positionX[2], Client_positionY[1]), Quaternion.identity);
-            newPlayer3.IsRefMe = true;
+        //if(lobbyUDP.teamID == 3)
+        //{
+        //    newPlayer3 = Instantiate<PlayerMovement>(charachters[2], new Vector2(Client_positionX[2], Client_positionY[1]), Quaternion.identity);
+        //    newPlayer3.IsRefMe = true;
 
-            newPlayer1 = Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY[0]), Quaternion.identity);
-            newPlayer2 = Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY[0]), Quaternion.identity);
-            newPlayer4 = Instantiate(charachters[3], new Vector2(Client_positionX[3], Client_positionY[1]), Quaternion.identity);
-        }
+        //    newPlayer1 = Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY[0]), Quaternion.identity);
+        //    newPlayer2 = Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY[0]), Quaternion.identity);
+        //    newPlayer4 = Instantiate(charachters[3], new Vector2(Client_positionX[3], Client_positionY[1]), Quaternion.identity);
+        //}
 
-        if(lobbyUDP.teamID == 4)
-        {
-            newPlayer4 = Instantiate<PlayerMovement>(charachters[3], new Vector2(Client_positionX[3], Client_positionY[1]), Quaternion.identity);
-            newPlayer4.IsRefMe = true;
+        //if(lobbyUDP.teamID == 4)
+        //{
+        //    newPlayer4 = Instantiate<PlayerMovement>(charachters[3], new Vector2(Client_positionX[3], Client_positionY[1]), Quaternion.identity);
+        //    newPlayer4.IsRefMe = true;
 
-            newPlayer1 = Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY[0]), Quaternion.identity);
-            newPlayer2 = Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY[0]), Quaternion.identity);
-            newPlayer3 = Instantiate(charachters[2], new Vector2(Client_positionX[2], Client_positionY[1]), Quaternion.identity);
-        }
+        //    newPlayer1 = Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY[0]), Quaternion.identity);
+        //    newPlayer2 = Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY[0]), Quaternion.identity);
+        //    newPlayer3 = Instantiate(charachters[2], new Vector2(Client_positionX[2], Client_positionY[1]), Quaternion.identity);
+        //}
 
     }
 
@@ -180,8 +180,8 @@ public class UDPClient : NetworkManager
     {
         lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[0]);
         lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[1]);
-        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[2]);
-        lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[3]);
+        //lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[2]);
+        //lobbyUDP.udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", lobbyUDP.playersPort[3]);
     }
 
     static InputStruct[] ParseBytes(byte[] receiveBytes)
@@ -250,8 +250,8 @@ public class UDPClient : NetworkManager
             {
                 newPlayer1.IsRefMe = true;
                 newPlayer2.IsRefMe = false;
-                newPlayer3.IsRefMe = false;
-                newPlayer4.IsRefMe = false;
+                //newPlayer3.IsRefMe = false;
+                //newPlayer4.IsRefMe = false;
                 inputManager.IsJumpPressed = true;
 
 
@@ -261,8 +261,8 @@ public class UDPClient : NetworkManager
             {
                 newPlayer1.IsRefMe = false;
                 newPlayer2.IsRefMe = true;
-                newPlayer3.IsRefMe = true;
-                newPlayer4.IsRefMe = true;               
+                //newPlayer3.IsRefMe = true;
+                //newPlayer4.IsRefMe = true;               
                 inputManager.IsJumpPressed = true;
 
             }
