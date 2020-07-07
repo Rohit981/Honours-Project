@@ -89,6 +89,7 @@ public class UDPClient : NetworkManager
 
         inputMsg.Jump = networkManager.input.Jump;
         inputMsg.Move = networkManager.input.Move;
+        inputMsg.MoveBackward = networkManager.input.MoveBackward;
         inputMsg.Attack = networkManager.input.Attack;
 
         Byte[] sendBytes = new Byte[Marshal.SizeOf(inputMsg)];
@@ -135,7 +136,6 @@ public class UDPClient : NetworkManager
         if(lobbyUDP.teamID == 1 )
         {
             newPlayer1 =  Instantiate<PlayerMovement> (charachters[0], new Vector2(Client_positionX[0], Client_positionY[0]), Quaternion.identity);
-            newPlayer1.IsRefMe = true;
 
             newPlayer2 = Instantiate(charachters[1], new Vector2(Client_positionX[1], Client_positionY[0]), Quaternion.identity);
             newPlayer3 = Instantiate(charachters[2], new Vector2(Client_positionX[2], Client_positionY[1]), Quaternion.identity);
@@ -147,7 +147,6 @@ public class UDPClient : NetworkManager
         if (lobbyUDP.teamID == 2)
         {
             newPlayer2 = Instantiate<PlayerMovement> (charachters[1], new Vector2(Client_positionX[1], Client_positionY[0]), Quaternion.identity);
-            newPlayer2.IsRefMe = true;
 
             newPlayer1 = Instantiate(charachters[0], new Vector2(Client_positionX[0], Client_positionY[0]), Quaternion.identity);
             newPlayer3 = Instantiate(charachters[2], new Vector2(Client_positionX[2], Client_positionY[1]), Quaternion.identity);
@@ -246,114 +245,122 @@ public class UDPClient : NetworkManager
     {
         if (msg.Jump == 1)
         {
-            if(msg.ObjectID == 1)
+            if (msg.ObjectID == 1)
             {
-                newPlayer1.IsRefMe = true;
-                newPlayer2.IsRefMe = false;
-                //newPlayer3.IsRefMe = false;
-                //newPlayer4.IsRefMe = false;
-                inputManager.IsJumpPressed = true;
 
+
+                newPlayer1.inputStruct.Jump = 1;
+
+            }
+            else
+            {
+                newPlayer1.inputStruct.Jump = 0;
 
             }
 
             if (msg.ObjectID == 2)
             {
-                newPlayer1.IsRefMe = false;
-                newPlayer2.IsRefMe = true;
-                //newPlayer3.IsRefMe = true;
-                //newPlayer4.IsRefMe = true;               
-                inputManager.IsJumpPressed = true;
+
+
+                newPlayer2.inputStruct.Jump = 1;
+
+            }
+
+            else
+            {
+                newPlayer2.inputStruct.Jump = 0;
 
             }
 
         }
 
-        else
-        {
-           
-            inputManager.IsJumpPressed = false;
 
-        }
 
         if (msg.Move == 1)
         {
             if(msg.ObjectID == 1)
             {
-                newPlayer1.IsRefMe = true;
-                newPlayer2.IsRefMe = false;
-                inputManager.IsForwardPressed = true;
+                newPlayer1.inputStruct.Move = 1;
+               
+
+            }
+
+            else
+            {
+                newPlayer1.inputStruct.Move = 0;
+
             }
 
             if (msg.ObjectID == 2)
             {
-                newPlayer1.IsRefMe = false;
-                newPlayer2.IsRefMe = true;
-                inputManager.IsForwardPressed = true;
+                newPlayer2.inputStruct.Move = 1;
+               
+
+            }
+            else
+            {
+                newPlayer2.inputStruct.Move = 0;
+
             }
 
         }
 
-        else
-        {
-           
-            inputManager.IsForwardPressed = false;
 
-        }
 
-        if (msg.Move == -1)
+        if (msg.MoveBackward == 1)
         {
             if (msg.ObjectID == 1)
             {
-                newPlayer1.IsRefMe = true;
-                newPlayer2.IsRefMe = false;
-                inputManager.IsBackPressed = true;
+                newPlayer1.inputStruct.MoveBackward = 1;
+
+            }
+            else
+            {
+                newPlayer1.inputStruct.MoveBackward = 0;
 
             }
 
             if (msg.ObjectID == 2)
             {
-                newPlayer1.IsRefMe = false;
-                newPlayer2.IsRefMe = true;
-                inputManager.IsBackPressed = true;
+                newPlayer2.inputStruct.MoveBackward = 1;
+
+            }
+            else
+            {
+                newPlayer2.inputStruct.MoveBackward = 0;
 
             }
 
         }
 
-        else
-        {
-         
-            inputManager.IsBackPressed = false;
 
-        }
 
         if (msg.Attack == 1)
         {
             if (msg.ObjectID == 1)
             {
-                newPlayer1.IsRefMe = true;
-                newPlayer2.IsRefMe = false;
-                inputManager.IsAttackPressed = true;
+                newPlayer1.inputStruct.Attack = 1;
+
+            }
+            else
+            {
+                newPlayer1.inputStruct.Attack = 0;
 
             }
 
             if (msg.ObjectID == 2)
             {
-                newPlayer1.IsRefMe = false;
-                newPlayer2.IsRefMe = true;
-                inputManager.IsAttackPressed = true;
+                newPlayer2.inputStruct.Attack = 1;
+            }
+            else
+            {
+                newPlayer2.inputStruct.Attack = 0;
 
             }
 
         }
 
-        else
-        {
-           
-            inputManager.IsAttackPressed = false;
-
-        }
+        
 
 
     }

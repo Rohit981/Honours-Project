@@ -126,9 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbb3544fc1a14a4badc342b90772ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ninjaStar: {fileID: 5235612342695125468, guid: ccab5bccdb2ac044c8be3a8a081ee72e,
+  projectile: {fileID: 5235612342695125468, guid: ccab5bccdb2ac044c8be3a8a081ee72e,
     type: 3}
-  input: {fileID: 2550015047612838517, guid: 634baf8de80b7f1478e819c328cc0d80, type: 3}
 --- !u!1 &5235047061106381004
 GameObject:
   m_ObjectHideFlags: 0

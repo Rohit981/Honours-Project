@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1758771572}
-  - component: {fileID: 72277080}
+  - component: {fileID: 828147951950161145}
   m_Layer: 9
   m_Name: GunPoint
   m_TagString: Untagged
@@ -114,7 +114,7 @@ Transform:
   m_Father: {fileID: 8388039712260537478}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &72277080
+--- !u!114 &828147951950161145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,11 +123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1758771571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f641b4bbccc9ee54eacd5ac231864ef2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bbb3544fc1a14a4badc342b90772ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Missile: {fileID: 1812507318097722086, guid: 8dd9e4461f6848d47a9a8fa0a3c834f5, type: 3}
-  input: {fileID: 2550015047612838517, guid: 634baf8de80b7f1478e819c328cc0d80, type: 3}
+  projectile: {fileID: 1812507318097722086, guid: 8dd9e4461f6848d47a9a8fa0a3c834f5,
+    type: 3}
 --- !u!1 &8388039712260537474
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +436,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 375
+      objectReference: {fileID: 0}
+    - target: {fileID: 770931936862220584, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 770931936862220584, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcb0dc411f6eb274282d5bbac7e07d5f, type: 3}

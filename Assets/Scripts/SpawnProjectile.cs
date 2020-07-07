@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnNinjaStar : MonoBehaviour
+public class SpawnProjectile : MonoBehaviour
 {
-    [SerializeField] private GameObject ninjaStar;
-    [SerializeField] private InputManager input;
+    [SerializeField] private GameObject projectile;   
     private PlayerMovement player;
     private float shootRate;
     // Start is called before the first frame update
@@ -13,7 +12,6 @@ public class SpawnNinjaStar : MonoBehaviour
     {
         player = GetComponentInParent<PlayerMovement>();
         shootRate = 1f;
-        input = FindObjectOfType<InputManager>();
     }
 
     // Update is called once per frame
@@ -22,28 +20,29 @@ public class SpawnNinjaStar : MonoBehaviour
         shootRate += Time.deltaTime;
         if(shootRate >= 0.8f)
         {
-            //if (player.IsRefMe == true)
-            //{
-                Shooting();
-            //}
+           
+             Shooting();
+           
         }
     }
 
     void Shooting()
     {
-        if (input.IsAttackPressed == true && player.IsFacingRight == true)
+        if (player.inputStruct.Attack == 1 && player.IsFacingRight == true)
         {
             player.anim.SetBool("IsShooting", true);
-            Instantiate(ninjaStar, transform.position, Quaternion.Euler(0, 0, -90));
+            Instantiate(projectile, transform.position, Quaternion.Euler(0, 0, -90));
             shootRate = 0;
+            player.inputStruct.Attack = 0;
 
         }
 
-        else if (input.IsAttackPressed == true && player.IsFacingRight == false)
+        else if (player.inputStruct.Attack == 1 && player.IsFacingRight == false)
         {
             player.anim.SetBool("IsShooting", true);
-            Instantiate(ninjaStar, transform.position, Quaternion.Euler(0, 0, 90));
+            Instantiate(projectile, transform.position, Quaternion.Euler(0, 0, 90));
             shootRate = 0;
+            player.inputStruct.Attack = 0;
 
         }
 

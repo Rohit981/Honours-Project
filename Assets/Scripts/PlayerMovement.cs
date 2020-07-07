@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public struct Inputs
+    {
+        public byte Jump;
+        public byte Move;
+        public byte MoveBackward;
+        public byte Attack;
+    }
+
     // Start is called before the first frame update
     private Rigidbody2D rb;
     [SerializeField] private float speed;
@@ -15,7 +23,9 @@ public class PlayerMovement : MonoBehaviour
     internal bool IsFacingRight;
     internal bool IsRefMe = false;
     [SerializeField] private InputManager input;
-    private NetworkManager networkManager;
+
+    public Inputs inputStruct;
+   
 
     void Start()
     {
@@ -23,18 +33,18 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         boxcollider2D = GetComponent<BoxCollider2D>();
         input = FindObjectOfType<InputManager>();
-        networkManager = FindObjectOfType<NetworkManager>();
+        
         //IsGrounded = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (IsRefMe == true)
-        {
+        //if (IsRefMe == true)
+        //{
             MovementInput();
 
-        }
+        //}
 
     }
 
@@ -43,9 +53,9 @@ public class PlayerMovement : MonoBehaviour
     void MovementInput()
     {
 
-        float Movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        //float Movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 
-        transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
+        //transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
              
 
         FlipCharacter();
@@ -57,19 +67,27 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 characterScale = transform.localScale;
 
-        if(input.IsForwardPressed == true)
+        if(inputStruct.Move == 1)
         {
+            float Movement = Input.GetAxis("Horizontal")* speed * Time.deltaTime;
+            Movement++;
+            transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
             //sprite.flipX = false;
             characterScale.x = 1;
             anim.SetBool("IsRunning", true);
+            inputStruct.Move = 0;
 
-        }       
+        }
 
-        else if (input.IsBackPressed == true)
+        else if (inputStruct.MoveBackward == 1)
         {
+            float Movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+            Movement--;
+            transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
             //sprite.flipX = true;
-            characterScale.x = -1;    
+            characterScale.x = -1;
             anim.SetBool("IsRunning", true);
+            inputStruct.MoveBackward = 0;
 
         }
 
@@ -116,10 +134,11 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (input.IsJumpPressed == true  && IsGrounded == true )
+        if (inputStruct.Jump == 1  && IsGrounded == true )
         {
             
             rb.AddForce(Vector2.up * JumpHeight);
+            inputStruct.Jump = 0;
            
         }
 

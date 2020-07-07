@@ -42,31 +42,36 @@ public class InputManager : MonoBehaviour
 
         else
         {
-            IsForwardPressed = false;
             networkManager.input.Move = 0;
-
         }
 
         if (Input.GetAxis("Horizontal") < 0)
         {
             IsBackPressed = true;
-            networkManager.input.Move = -1;
+            networkManager.input.MoveBackward = 1;
 
         }
 
         else
         {
-            IsBackPressed = false;
-            networkManager.input.Move = 0;
-
-
+            networkManager.input.MoveBackward = 0;
         }
+
+        //else
+        //{
+        //    IsBackPressed = false;
+        //    networkManager.input.Move = 0;
+        //    networkManager.input.MoveBackward = 0;
+
+
+        //}
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             IsAttackPressed = true;
             networkManager.input.Attack = 1;
         }
+
         else
         {
             IsAttackPressed = false;
