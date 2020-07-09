@@ -39,12 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        //if (IsRefMe == true)
-        //{
-            MovementInput();
-
-        //}
+    {  
+        MovementInput();
 
     }
 
@@ -69,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(inputStruct.Move == 1)
         {
-            float Movement = Input.GetAxis("Horizontal")* speed * Time.deltaTime;
+            float Movement = 0.05f*speed * Time.deltaTime;
             Movement++;
             transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
             //sprite.flipX = false;
@@ -81,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (inputStruct.MoveBackward == 1)
         {
-            float Movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+            float Movement = 0.05f*speed * Time.deltaTime;
             Movement--;
             transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
             //sprite.flipX = true;

@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae89e20190ab499468cd899d16c82890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 0.05
   JumpHeight: 1250
   IsGrounded: 0
   groundLayer:
@@ -322,11 +322,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4874380398278862869}
     m_Modifications:
-    - target: {fileID: 336188531682236687, guid: f2c122ff460a17044b4cfde593a9389e,
-        type: 3}
-      propertyPath: m_Name
-      value: NinjaHealthBarCanvas
-      objectReference: {fileID: 0}
     - target: {fileID: 336188531682236686, guid: f2c122ff460a17044b4cfde593a9389e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -431,6 +426,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 336188531682236687, guid: f2c122ff460a17044b4cfde593a9389e,
+        type: 3}
+      propertyPath: m_Name
+      value: NinjaHealthBarCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 336188532056942113, guid: f2c122ff460a17044b4cfde593a9389e,
         type: 3}
