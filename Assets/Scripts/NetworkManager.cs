@@ -13,6 +13,7 @@ public class NetworkManager : MonoBehaviour
 
    public struct InputStruct
    {
+       public float ClientTime;
        public byte ObjectID; 
        public byte Jump;
        public byte Move;

@@ -29,6 +29,10 @@ public class UDPClient : NetworkManager
     private NetworkManager networkManager;
     private InputManager inputManager;
 
+    private float Owntime;
+    private float OtherInputRecievetime;
+    private float LocalInputRecievetime;
+
     PlayerMovement newPlayer1;
     PlayerMovement newPlayer2;
     PlayerMovement newPlayer3;
@@ -68,6 +72,8 @@ public class UDPClient : NetworkManager
         //Send information every 3rd frame 
         SendCounter += Time.deltaTime;
 
+        Owntime += Time.deltaTime;
+
         //inputs.Add(inputMsg);
 
         if(SendCounter >= 0.048)
@@ -85,8 +91,11 @@ public class UDPClient : NetworkManager
 
     void SendInput()
     {
+        inputMsg.ClientTime = Owntime;
+
         inputMsg.ObjectID = lobbyUDP.teamID;
 
+        ///Inputs Byte
         inputMsg.Jump = networkManager.input.Jump;
         inputMsg.Move = networkManager.input.Move;
         inputMsg.MoveBackward = networkManager.input.MoveBackward;
@@ -248,7 +257,7 @@ public class UDPClient : NetworkManager
             if (msg.ObjectID == 1)
             {
 
-
+                RecievedTime(msg);
                 newPlayer1.inputStruct.Jump = 1;
 
             }
@@ -261,6 +270,7 @@ public class UDPClient : NetworkManager
             if (msg.ObjectID == 2)
             {
 
+                RecievedTime(msg);
 
                 newPlayer2.inputStruct.Jump = 1;
 
@@ -280,6 +290,8 @@ public class UDPClient : NetworkManager
         {
             if(msg.ObjectID == 1)
             {
+                RecievedTime(msg);
+
                 newPlayer1.inputStruct.Move = 1;
                
 
@@ -293,6 +305,8 @@ public class UDPClient : NetworkManager
 
             if (msg.ObjectID == 2)
             {
+                RecievedTime(msg);
+
                 newPlayer2.inputStruct.Move = 1;
                
 
@@ -311,6 +325,8 @@ public class UDPClient : NetworkManager
         {
             if (msg.ObjectID == 1)
             {
+                RecievedTime(msg);
+
                 newPlayer1.inputStruct.MoveBackward = 1;
 
             }
@@ -322,6 +338,8 @@ public class UDPClient : NetworkManager
 
             if (msg.ObjectID == 2)
             {
+                RecievedTime(msg);
+
                 newPlayer2.inputStruct.MoveBackward = 1;
 
             }
@@ -339,6 +357,8 @@ public class UDPClient : NetworkManager
         {
             if (msg.ObjectID == 1)
             {
+                RecievedTime(msg);
+
                 newPlayer1.inputStruct.Attack = 1;
 
             }
@@ -350,6 +370,8 @@ public class UDPClient : NetworkManager
 
             if (msg.ObjectID == 2)
             {
+                RecievedTime(msg);
+
                 newPlayer2.inputStruct.Attack = 1;
             }
             else
@@ -365,19 +387,17 @@ public class UDPClient : NetworkManager
 
     }
 
-    void RecievedObjectID(InputStruct msg)
+    void RecievedTime(InputStruct msg)
     {
-        if(msg.ObjectID == 1)
+        if(msg.ObjectID == lobbyUDP.teamID)
         {
-            newPlayer1.IsRefMe = true;
-            newPlayer2.IsRefMe = false;
+            LocalInputRecievetime = msg.ClientTime;
         }
-
-        if (msg.ObjectID == 2)
+        else
         {
-            newPlayer2.IsRefMe = true;
-            newPlayer1.IsRefMe = false;
-
+            OtherInputRecievetime = msg.ClientTime;
         }
     }
+
+    
 }
