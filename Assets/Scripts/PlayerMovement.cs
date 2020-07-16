@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputManager input;
 
     public Inputs inputStruct;
+
+    public int frameCount;
    
 
     void Start()
@@ -39,7 +41,9 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {  
+    {
+
+        frameCount = Time.frameCount;
         MovementInput();
 
     }

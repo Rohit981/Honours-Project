@@ -15,10 +15,11 @@ public class UDPClient : NetworkManager
     private float SendCounter;
     List<InputStruct> inputs;
     InputStruct inputMsg;
-    [SerializeField] private Text InputText;
+    [SerializeField] private Text LocalTimeText;
     [SerializeField] private Canvas mainCanvas;
-    [SerializeField] private Text ObjectIDText;
-    [SerializeField] private Text JumpInputText;
+    [SerializeField] private Text InputRecievedTimeText;
+    [SerializeField] private Text OtherRecievedTimeText;
+    [SerializeField] private Text DifferenceTimeText;
 
     public Int32 udpPort;
 
@@ -32,6 +33,8 @@ public class UDPClient : NetworkManager
     private float Owntime;
     private float OtherInputRecievetime;
     private float LocalInputRecievetime;
+    private int frameCounter;
+    private float timeLastFrame;    
 
     PlayerMovement newPlayer1;
     PlayerMovement newPlayer2;
@@ -50,8 +53,8 @@ public class UDPClient : NetworkManager
     {
         lobbyUDP = GetComponent<LobbyUDPClient>();
 
-        ObjectIDText =  mainCanvas.GetComponentInChildren<Text>();
-        JumpInputText =  mainCanvas.GetComponentInChildren<Text>();
+        //ObjectIDText =  mainCanvas.GetComponentInChildren<Text>();
+        //JumpInputText =  mainCanvas.GetComponentInChildren<Text>();
 
         SendCounter = 0f;
 
@@ -61,6 +64,8 @@ public class UDPClient : NetworkManager
 
         networkManager = FindObjectOfType<NetworkManager>();
         inputManager = FindObjectOfType<InputManager>();
+
+        timeLastFrame = Time.realtimeSinceStartup;
 
         
     }
@@ -74,9 +79,18 @@ public class UDPClient : NetworkManager
 
         Owntime += Time.deltaTime;
 
+        LocalTimeText.text = "Local Time:" + Owntime.ToString();
+
+        if(LocalInputRecievetime > 0 && OtherInputRecievetime >0)
+        {
+            float differenceInframeTime = Math.Abs(OtherInputRecievetime - LocalInputRecievetime);
+            DifferenceTimeText.text = "Difference:" + differenceInframeTime.ToString();
+
+        }
+
         //inputs.Add(inputMsg);
 
-        if(SendCounter >= 0.048)
+        if (SendCounter >= 0.048)
         {
 
             SendInput();
@@ -392,10 +406,17 @@ public class UDPClient : NetworkManager
         if(msg.ObjectID == lobbyUDP.teamID)
         {
             LocalInputRecievetime = msg.ClientTime;
+            InputRecievedTimeText.text = "Recieved Time:" + LocalInputRecievetime.ToString();
+
         }
         else
         {
             OtherInputRecievetime = msg.ClientTime;
+            OtherRecievedTimeText.text = "OtherRecievedTime:" + OtherInputRecievetime.ToString();
+
+
+           
+
         }
     }
 
