@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Inputs inputStruct;
 
-    public int frameCount;
+    public float frameCount;
    
 
     void Start()
@@ -43,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
 
-        frameCount = Time.frameCount;
+        //frameCount = Time.frameCount;
+        frameCount += Time.deltaTime  ;
         MovementInput();
 
     }
