@@ -81,7 +81,7 @@ public class UDPClient : NetworkManager
 
         LocalTimeText.text = "Local Time:" + Owntime.ToString();
 
-        if(LocalInputRecievetime > 0 && OtherInputRecievetime >0)
+        if(LocalInputRecievetime > 0 && OtherInputRecievetime > 0)
         {
             float differenceInframeTime = Math.Abs(OtherInputRecievetime - LocalInputRecievetime);
             DifferenceTimeText.text = "Difference:" + differenceInframeTime.ToString();
