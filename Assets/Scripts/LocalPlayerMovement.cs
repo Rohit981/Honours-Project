@@ -2,19 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
-    public struct Inputs
-    {
-        public byte Jump;
-        public byte Move;
-        public byte MoveBackward;
-        public byte Attack;
-    }
-
-    // Start is called before the first frame update
+public class LocalPlayerMovement : MonoBehaviour
+{  // Start is called before the first frame update
     private Rigidbody2D rb;
-    [SerializeField] private float speed;
+    [SerializeField] internal float speed;
     [SerializeField] private float JumpHeight;
     internal Animator anim;
     public bool IsGrounded;
@@ -22,19 +13,13 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxcollider2D;
     internal bool IsFacingRight;
     internal bool IsRefMe = false;
-    [SerializeField] private InputManager input;
-
-    public Inputs inputStruct;
-
-    public int frameCount;
-   
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxcollider2D = GetComponent<BoxCollider2D>();
-        input = FindObjectOfType<InputManager>();
+      
 
         //IsGrounded = false;
     }
@@ -43,12 +28,11 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
 
-        frameCount = Time.frameCount;
         MovementInput();
 
     }
 
-  
+
 
     void MovementInput()
     {
@@ -56,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         //float Movement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 
         //transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
-             
+
 
         FlipCharacter();
 
@@ -67,27 +51,26 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 characterScale = transform.localScale;
 
-        if(inputStruct.Move == 1)
+        if (Input.GetAxis("Horizontal") > 0)
         {
-            float Movement = 0.05f*speed * Time.deltaTime;
+            float Movement = 0.05f * speed * Time.deltaTime;
             Movement++;
             transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
             //sprite.flipX = false;
             characterScale.x = 1;
             anim.SetBool("IsRunning", true);
-            inputStruct.Move = 0;
+            
 
         }
 
-        else if (inputStruct.MoveBackward == 1)
+        else if (Input.GetAxis("Horizontal") < 0)
         {
-            float Movement = 0.05f*speed * Time.deltaTime;
+            float Movement = 0.05f * speed * Time.deltaTime;
             Movement--;
             transform.position = new Vector2(transform.position.x + Movement, transform.position.y);
             //sprite.flipX = true;
             characterScale.x = -1;
             anim.SetBool("IsRunning", true);
-            inputStruct.MoveBackward = 0;
 
         }
 
@@ -99,12 +82,12 @@ public class PlayerMovement : MonoBehaviour
 
         transform.localScale = characterScale;
 
-        if(characterScale.x == 1)
+        if (characterScale.x == 1)
         {
             IsFacingRight = true;
 
         }
-        else if(characterScale.x == -1)
+        else if (characterScale.x == -1)
         {
             IsFacingRight = false;
         }
@@ -118,15 +101,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (hitInfo.collider != null)
         {
-           // Debug.Log("Touching the ground");
+            // Debug.Log("Touching the ground");
             IsGrounded = true;
             rayColor = Color.red;
-            anim.SetBool("IsJumping", false);          
+            anim.SetBool("IsJumping", false);
 
         }
         else
         {
-           // Debug.Log("Not Touching the ground");
+            // Debug.Log("Not Touching the ground");
             IsGrounded = false;
             rayColor = Color.green;
             anim.SetBool("IsJumping", true);
@@ -134,31 +117,17 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (inputStruct.Jump == 1  && IsGrounded == true )
+        if (Input.GetAxis("Jump") > 0 && IsGrounded == true)
         {
-            
+
             rb.AddForce(Vector2.up * JumpHeight);
-            inputStruct.Jump = 0;
-           
+
         }
 
 
-        Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down*(boxcollider2D.bounds.extents.y + .05f), rayColor);
+        Debug.DrawRay(boxcollider2D.bounds.center, Vector2.down * (boxcollider2D.bounds.extents.y + .05f), rayColor);
 
         //Debug.Log(hitInfo.collider);
 
     }
-
-    void JumpRaycast()
-    {
-
-    }
-
-   
-
-   
-
-
-
-
 }

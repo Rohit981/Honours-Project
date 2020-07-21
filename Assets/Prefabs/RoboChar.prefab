@@ -82,7 +82,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405290620}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &1758771571
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +143,8 @@ GameObject:
   - component: {fileID: 1445101562}
   - component: {fileID: 1445101567}
   - component: {fileID: 1312715297}
+  - component: {fileID: 8388039713097433981}
+  - component: {fileID: 8388039713097433982}
   m_Layer: 11
   m_Name: RoboChar
   m_TagString: Enemy
@@ -289,7 +291,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8388039712260537474}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae89e20190ab499468cd899d16c82890, type: 3}
   m_Name: 
@@ -301,6 +303,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   input: {fileID: 2550015047612838517, guid: 634baf8de80b7f1478e819c328cc0d80, type: 3}
+  frameCount: 0
 --- !u!114 &1312715297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +318,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 0
   HealthBar: {fileID: 0}
+--- !u!114 &8388039713097433981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388039712260537474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab838e54ecce194c8f227c436486913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8388039713097433982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388039712260537474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc9a07c794fd2004693f5a982544a0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.005
+  JumpHeight: 1250
+  IsGrounded: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &9140806609873166134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -322,6 +355,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8388039712260537478}
     m_Modifications:
+    - target: {fileID: 770931937752605447, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
+        type: 3}
+      propertyPath: m_Name
+      value: RoboHealthBarCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 770931937752605446, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -427,25 +465,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 770931937752605447, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
-        type: 3}
-      propertyPath: m_Name
-      value: RoboHealthBarCanvas
-      objectReference: {fileID: 0}
     - target: {fileID: 770931937372396585, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 375
-      objectReference: {fileID: 0}
-    - target: {fileID: 770931936862220584, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 770931936862220584, guid: bcb0dc411f6eb274282d5bbac7e07d5f,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcb0dc411f6eb274282d5bbac7e07d5f, type: 3}
