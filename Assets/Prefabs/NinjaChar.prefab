@@ -82,7 +82,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428622586}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &2061325976
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 751342058}
   - component: {fileID: 4160131162635005129}
   - component: {fileID: 1828832546}
+  - component: {fileID: 4714072623078614674}
   m_Layer: 10
   m_Name: NinjaChar
   m_TagString: Enemy
@@ -301,6 +302,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   input: {fileID: 2550015047612838517, guid: 634baf8de80b7f1478e819c328cc0d80, type: 3}
+  frameCount: 0
 --- !u!114 &1828832546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +317,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 0
   HealthBar: {fileID: 0}
+--- !u!114 &4714072623078614674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5235047061106381004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab838e54ecce194c8f227c436486913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2662858709856285042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -322,6 +336,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4874380398278862869}
     m_Modifications:
+    - target: {fileID: 336188531682236687, guid: f2c122ff460a17044b4cfde593a9389e,
+        type: 3}
+      propertyPath: m_Name
+      value: NinjaHealthBarCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 336188531682236686, guid: f2c122ff460a17044b4cfde593a9389e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -427,11 +446,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 336188531682236687, guid: f2c122ff460a17044b4cfde593a9389e,
-        type: 3}
-      propertyPath: m_Name
-      value: NinjaHealthBarCanvas
-      objectReference: {fileID: 0}
     - target: {fileID: 336188532056942113, guid: f2c122ff460a17044b4cfde593a9389e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -441,16 +455,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -1.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 336188532570229536, guid: f2c122ff460a17044b4cfde593a9389e,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 336188532570229536, guid: f2c122ff460a17044b4cfde593a9389e,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 336188532056942112, guid: f2c122ff460a17044b4cfde593a9389e,
         type: 3}

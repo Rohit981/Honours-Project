@@ -28,7 +28,8 @@ public class UDPClient : NetworkManager
     public PlayerMovement[] charachters = new PlayerMovement[4];
 
     private NetworkManager networkManager;
-    private InputManager inputManager;
+    
+   
 
     private float Owntime;
     private float OtherInputRecievetime;
@@ -40,6 +41,8 @@ public class UDPClient : NetworkManager
     PlayerMovement newPlayer2;
     PlayerMovement newPlayer3;
     PlayerMovement newPlayer4;
+
+    private bool StartRewinding = false;
 
 
     public struct UdpState
@@ -63,7 +66,7 @@ public class UDPClient : NetworkManager
         inputMsg = new InputStruct();
 
         networkManager = FindObjectOfType<NetworkManager>();
-        inputManager = FindObjectOfType<InputManager>();
+        
 
         timeLastFrame = Time.realtimeSinceStartup;
 
@@ -86,7 +89,11 @@ public class UDPClient : NetworkManager
             float differenceInframeTime = Math.Abs(OtherInputRecievetime - LocalInputRecievetime);
             DifferenceTimeText.text = "Difference:" + differenceInframeTime.ToString();
 
+            newPlayer1.IsRewinding = true;
+            newPlayer2.IsRewinding = true;
         }
+
+       
 
         //inputs.Add(inputMsg);
 
@@ -153,7 +160,7 @@ public class UDPClient : NetworkManager
         Client_positionX.Add(38.3f);
 
         //Initialize Position for client in Y axis
-        Client_positionY.Add(23.3f);
+        Client_positionY.Add(2.72f);
         Client_positionY.Add(24.8f);
 
         if(lobbyUDP.teamID == 1 )
@@ -414,7 +421,7 @@ public class UDPClient : NetworkManager
             OtherInputRecievetime = msg.ClientTime;
             OtherRecievedTimeText.text = "OtherRecievedTime:" + OtherInputRecievetime.ToString();
 
-
+            StartRewinding = true;
            
 
         }

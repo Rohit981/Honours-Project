@@ -27,7 +27,10 @@ public class PlayerMovement : MonoBehaviour
     public Inputs inputStruct;
 
     public float frameCount;
-   
+
+    internal bool IsRewinding = false;
+    internal bool IsAddElement = false;
+
 
     void Start()
     {
@@ -77,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
             characterScale.x = 1;
             anim.SetBool("IsRunning", true);
             inputStruct.Move = 0;
+            IsAddElement = true;
 
         }
 
@@ -89,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
             characterScale.x = -1;
             anim.SetBool("IsRunning", true);
             inputStruct.MoveBackward = 0;
-
+            IsAddElement = true;
         }
 
         else
@@ -140,7 +144,8 @@ public class PlayerMovement : MonoBehaviour
             
             rb.AddForce(Vector2.up * JumpHeight);
             inputStruct.Jump = 0;
-           
+            IsAddElement = true;
+
         }
 
 

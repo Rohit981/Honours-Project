@@ -14,6 +14,7 @@ public class LocalPlayerMovement : MonoBehaviour
     internal bool IsFacingRight;
     internal bool IsRefMe = false;
 
+    internal bool IsAddElement = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -59,7 +60,8 @@ public class LocalPlayerMovement : MonoBehaviour
             //sprite.flipX = false;
             characterScale.x = 1;
             anim.SetBool("IsRunning", true);
-            
+
+            IsAddElement = true;
 
         }
 

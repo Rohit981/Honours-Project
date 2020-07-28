@@ -4,39 +4,48 @@ using UnityEngine;
 
 public class Rollback : MonoBehaviour
 {
-    private bool IsRewinding = false;
+
+    private PlayerMovement player;
 
     private List<Vector2> positions;
 
+    //private LocalPlayerMovement local;
+
     internal bool IsForwardRecording = false;
+
+    //bool IsRewinding = false;
     // Start is called before the first frame update
     void Start()
     {
         positions = new List<Vector2>();
+        player = GetComponentInParent<PlayerMovement>();
+        positions.Add(transform.position);
+
+        //local = GetComponentInParent<LocalPlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Return))
-        {
-            //IsForwardRecording = true;
-            StartRewinding();
+        //if (Input.GetKey(KeyCode.Return))
+        //{
+        //    //IsForwardRecording = true;
+        //    StartRewinding();
 
-        }
+        //}
 
-        if (Input.GetKeyUp(KeyCode.E))
-        {
+        //if (Input.GetKeyUp(KeyCode.E))
+        //{
 
-            StopRewinding();
+        //    StopRewinding();
 
-        }
+        //}
 
     }
 
     private void FixedUpdate()
     {
-        if (IsRewinding == true)
+        if (player.IsRewinding == true)
             Rewind();
 
         else
@@ -51,25 +60,33 @@ public class Rollback : MonoBehaviour
         transform.position = positions[0];
         positions.Remove(transform.position);
 
+        if(positions.Count == 0)
+        player.IsRewinding = false;
         
         //StopRewinding();
     }
 
     void Record()
     {
-        positions.Add( transform.position);
+        if(player.IsAddElement == true)
+        {
+          positions.Add( transform.position);
+
+            player.IsAddElement = false;
+
+        }
       
     }
 
-    void StartRewinding()
-    {
-        IsRewinding = true;
-    }
+    //void StartRewinding()
+    //{
+    //    IsRewinding = true;
+    //}
 
-    void StopRewinding()
-    {
-        IsRewinding = false;
-    }
+    //void StopRewinding()
+    //{
+    //    IsRewinding = false;
+    //}
 
-  
+
 }
