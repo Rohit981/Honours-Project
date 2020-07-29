@@ -28,8 +28,8 @@ public class UDPClient : NetworkManager
     public PlayerMovement[] charachters = new PlayerMovement[4];
 
     private NetworkManager networkManager;
-    
-   
+
+    private List<int> InputPressedValue;
 
     private float Owntime;
     private float OtherInputRecievetime;
@@ -70,6 +70,7 @@ public class UDPClient : NetworkManager
 
         timeLastFrame = Time.realtimeSinceStartup;
 
+        InputPressedValue = new List<int>();
         
     }
 
@@ -91,7 +92,17 @@ public class UDPClient : NetworkManager
 
             newPlayer1.IsRewinding = true;
             newPlayer2.IsRewinding = true;
+
+            OtherInputRecievetime = 0;
+            LocalInputRecievetime = 0;
+
+            
         }
+
+        //if(InputPressedValue.Count == 2)
+        //{
+        //    InputPressedValue.Remove(lobbyUDP.teamID);
+        //}
 
        
 
@@ -314,6 +325,7 @@ public class UDPClient : NetworkManager
                 RecievedTime(msg);
 
                 newPlayer1.inputStruct.Move = 1;
+
                
 
             }
@@ -329,7 +341,8 @@ public class UDPClient : NetworkManager
                 RecievedTime(msg);
 
                 newPlayer2.inputStruct.Move = 1;
-               
+
+                
 
             }
             else
