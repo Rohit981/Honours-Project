@@ -31,6 +31,12 @@ public class PlayerMovement : MonoBehaviour
     internal bool IsRewinding = false;
     internal bool IsAddElement = false;
 
+    internal List<Inputs> RecentInput = new List<Inputs>();
+
+    Inputs CurrentInput;
+
+    internal bool IsPredicting = false;
+
 
     void Start()
     {
@@ -50,9 +56,21 @@ public class PlayerMovement : MonoBehaviour
         frameCount += Time.deltaTime  ;
         MovementInput();
 
+        
+
     }
 
-  
+    private void Update()
+    {
+        if(IsPredicting == true)
+        {
+           PredictedInput();
+           IsPredicting = false;
+
+        }
+    }
+
+
 
     void MovementInput()
     {
@@ -155,9 +173,42 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    void JumpRaycast()
+    
+    public void AddJumpInputMessage(Inputs InputValue)
     {
+       
+        RecentInput.Add(InputValue);
 
+        
+
+    }
+
+    void PredictedInput()
+    {
+        if (RecentInput[0].Move == 1)
+        {
+            inputStruct.Move = 1;
+        }
+
+        if (RecentInput[0].MoveBackward == 1)
+        {
+            inputStruct.MoveBackward = 1;
+        }
+
+        if (RecentInput[0].Jump == 1)
+        {
+            inputStruct.Jump = 1;
+        }
+
+        if (RecentInput[0].Attack == 1)
+        {
+            inputStruct.Attack = 1;
+        }
+
+        if (RecentInput.Count == 1)
+        {
+            RecentInput.RemoveAt(0);
+        }
     }
 
    

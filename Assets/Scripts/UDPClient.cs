@@ -29,8 +29,6 @@ public class UDPClient : NetworkManager
 
     private NetworkManager networkManager;
 
-    private List<int> InputPressedValue;
-
     private float Owntime;
     private float OtherInputRecievetime;
     private float LocalInputRecievetime;
@@ -43,6 +41,8 @@ public class UDPClient : NetworkManager
     PlayerMovement newPlayer4;
 
     private bool StartRewinding = false;
+
+    private bool StartPredictng = false;
 
 
     public struct UdpState
@@ -70,8 +70,6 @@ public class UDPClient : NetworkManager
 
         timeLastFrame = Time.realtimeSinceStartup;
 
-        InputPressedValue = new List<int>();
-        
     }
 
     // Update is called once per frame
@@ -96,6 +94,7 @@ public class UDPClient : NetworkManager
             OtherInputRecievetime = 0;
             LocalInputRecievetime = 0;
 
+            StartPredictng = true;
             
         }
 
@@ -292,6 +291,9 @@ public class UDPClient : NetworkManager
                 RecievedTime(msg);
                 newPlayer1.inputStruct.Jump = 1;
 
+                if(msg.ObjectID != lobbyUDP.teamID)
+                newPlayer1.AddJumpInputMessage(newPlayer1.inputStruct);
+
             }
             else
             {
@@ -305,6 +307,9 @@ public class UDPClient : NetworkManager
                 RecievedTime(msg);
 
                 newPlayer2.inputStruct.Jump = 1;
+
+                if (msg.ObjectID != lobbyUDP.teamID)
+                    newPlayer1.AddJumpInputMessage(newPlayer2.inputStruct);
 
             }
 
@@ -326,7 +331,8 @@ public class UDPClient : NetworkManager
 
                 newPlayer1.inputStruct.Move = 1;
 
-               
+                if (msg.ObjectID != lobbyUDP.teamID)
+                    newPlayer1.AddJumpInputMessage(newPlayer1.inputStruct);
 
             }
 
@@ -342,7 +348,8 @@ public class UDPClient : NetworkManager
 
                 newPlayer2.inputStruct.Move = 1;
 
-                
+                if (msg.ObjectID != lobbyUDP.teamID)
+                    newPlayer1.AddJumpInputMessage(newPlayer2.inputStruct);
 
             }
             else
@@ -363,6 +370,9 @@ public class UDPClient : NetworkManager
 
                 newPlayer1.inputStruct.MoveBackward = 1;
 
+                if (msg.ObjectID != lobbyUDP.teamID)
+                    newPlayer1.AddJumpInputMessage(newPlayer1.inputStruct);
+
             }
             else
             {
@@ -375,6 +385,9 @@ public class UDPClient : NetworkManager
                 RecievedTime(msg);
 
                 newPlayer2.inputStruct.MoveBackward = 1;
+
+                if (msg.ObjectID != lobbyUDP.teamID)
+                    newPlayer1.AddJumpInputMessage(newPlayer2.inputStruct);
 
             }
             else
@@ -395,6 +408,9 @@ public class UDPClient : NetworkManager
 
                 newPlayer1.inputStruct.Attack = 1;
 
+                if (msg.ObjectID != lobbyUDP.teamID)
+                    newPlayer1.AddJumpInputMessage(newPlayer1.inputStruct);
+
             }
             else
             {
@@ -407,6 +423,9 @@ public class UDPClient : NetworkManager
                 RecievedTime(msg);
 
                 newPlayer2.inputStruct.Attack = 1;
+
+                if (msg.ObjectID != lobbyUDP.teamID)
+                    newPlayer1.AddJumpInputMessage(newPlayer2.inputStruct);
             }
             else
             {
@@ -428,6 +447,21 @@ public class UDPClient : NetworkManager
             LocalInputRecievetime = msg.ClientTime;
             InputRecievedTimeText.text = "Recieved Time:" + LocalInputRecievetime.ToString();
 
+            if(StartPredictng == true)
+            {
+                if(lobbyUDP.teamID == 1)
+                {
+                    newPlayer2.IsPredicting = true;
+                    StartPredictng = false;
+                }
+
+                if (lobbyUDP.teamID == 2)
+                {
+                    newPlayer1.IsPredicting = true;
+                    StartPredictng = false;
+
+                }
+            }
         }
         else
         {
