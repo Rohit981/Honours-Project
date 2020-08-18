@@ -83,7 +83,7 @@ public class UDPClient : NetworkManager
 
         LocalTimeText.text = "Local Time:" + Owntime.ToString();
 
-        if(LocalInputRecievetime > 0 && OtherInputRecievetime > 0)
+        if (LocalInputRecievetime > 0 && OtherInputRecievetime > 0)
         {
             float differenceInframeTime = Math.Abs(OtherInputRecievetime - LocalInputRecievetime);
             DifferenceTimeText.text = "Difference:" + differenceInframeTime.ToString();
@@ -95,7 +95,7 @@ public class UDPClient : NetworkManager
             LocalInputRecievetime = 0;
 
             StartPredictng = true;
-            
+
         }
 
         //if(InputPressedValue.Count == 2)
@@ -103,7 +103,7 @@ public class UDPClient : NetworkManager
         //    InputPressedValue.Remove(lobbyUDP.teamID);
         //}
 
-       
+
 
         //inputs.Add(inputMsg);
 
@@ -291,8 +291,8 @@ public class UDPClient : NetworkManager
                 RecievedTime(msg);
                 newPlayer1.inputStruct.Jump = 1;
 
-                if(msg.ObjectID != lobbyUDP.teamID)
-                newPlayer1.AddJumpInputMessage(newPlayer1.inputStruct);
+                if (msg.ObjectID != lobbyUDP.teamID)
+                    newPlayer1.AddJumpInputMessage(newPlayer1.inputStruct);
 
             }
             else

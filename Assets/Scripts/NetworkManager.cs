@@ -32,12 +32,12 @@ public class NetworkManager : MonoBehaviour
 
     }
 
-    public struct ClientConnection
-    {
-        public IPAddress ClientIPAdress;
-        public Int32 port;
+    //public struct ClientConnection
+    //{
+    //    public Int32 port;
+    //    public string ClientIPAdress;
        
-    }
+    //}
 
      public struct PortNumber
     {
@@ -47,15 +47,22 @@ public class NetworkManager : MonoBehaviour
         public Int32 Client3_UDP_port;
         public Int32 Client4_UDP_port;
 
+        //IP address
+        public string Client1_UDP_IP;
+        public string Client2_UDP_IP;
+        public string Client3_UDP_IP;
+        public string Client4_UDP_IP;
+
     }
 
     
+
+
     public List<float> Client_positionX = new List<float>();
     public List<float> Client_positionY = new List<float>();
-    public ClientConnection[] players = new ClientConnection[4];
+    //public ClientConnection[] players = new ClientConnection[4];
     public InputStruct input;
-    public List<IPAddress> IpAdresses = new List<IPAddress>();
-    
+   
 
 
     public void Update()

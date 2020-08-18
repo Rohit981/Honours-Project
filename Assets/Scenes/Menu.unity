@@ -324,6 +324,7 @@ MonoBehaviour:
   Client_positionX: []
   Client_positionY: []
   ports: 
+  IpAdresses: []
 --- !u!4 &382394860
 Transform:
   m_ObjectHideFlags: 0

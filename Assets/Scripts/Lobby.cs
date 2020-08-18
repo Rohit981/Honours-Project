@@ -23,10 +23,6 @@ public class Lobby : NetworkManager
 
     public List<Int32> ports = new List<Int32>();
 
-    string ClientPortMessage = "Hello";
-
-    Ping ping;
-
     TcpClient tcpClients;
 
     private PortNumber ClientPortNumber;
@@ -34,6 +30,9 @@ public class Lobby : NetworkManager
     private float changeSceneTimer = 0;
 
     private bool startTimer = false;
+
+    public List<String> IpAdresses = new List<String>();
+
 
     // Start is called before the first frame update
     void Start()
@@ -97,33 +96,45 @@ public class Lobby : NetworkManager
 
         stream.Read(bytes, 0, bytes.Length);
 
+        //LobbyUDP udpMsg;
+
         String data = System.Text.Encoding.ASCII.GetString(bytes, 0, bytes.Length);
 
-        print("Data Recived: " + data);
+        //udpMsg = DeserializeStruct<LobbyUDP>(bytes);
 
-       //The code needs to be changed for recieving the clients port
+        //print("Data Recived: " + data);
 
         if (ClientsConnected.Count == 1)
         {
            ClientPortNumber.Client1_UDP_port = Int32.Parse(data);
-           
+           //ClientPortNumber.Client1_UDP_IP = IpAdresses[0];
+
+            print("IP Recived: " + ClientPortNumber.Client1_UDP_IP);
+            print("Port Recived: " + ClientPortNumber.Client1_UDP_port);
+
         }
 
         else if(ClientsConnected.Count == 2)
         {
             ClientPortNumber.Client2_UDP_port = Int32.Parse(data);
+            //ClientPortNumber.Client2_UDP_IP = IpAdresses[1];
+
 
         }
 
         else if (ClientsConnected.Count == 3)
         {
             ClientPortNumber.Client3_UDP_port = Int32.Parse(data);
- 
+            //ClientPortNumber.Client3_UDP_IP = IpAdresses[2];
+
+
         }
 
         else if (ClientsConnected.Count == 4)
         {
             ClientPortNumber.Client4_UDP_port = Int32.Parse(data);
+            //ClientPortNumber.Client4_UDP_IP = IpAdresses[3];
+
 
         }
 
@@ -172,7 +183,7 @@ public class Lobby : NetworkManager
 
 
         ClientsConnected.Add(tcpClients);
-        IpAdresses.Add(((IPEndPoint)tcpClients.Client.RemoteEndPoint).Address);
+        IpAdresses.Add(((IPEndPoint)tcpClients.Client.RemoteEndPoint).Address.ToString());
 
         Recieve();
 

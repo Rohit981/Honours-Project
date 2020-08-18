@@ -66,8 +66,8 @@ public class TCPClient : NetworkManager
         if(IsChangingScene == true)
         {
             udpRef.IsSceneChanged = true;
-            client.Close();
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            client.Close();
             DontDestroyOnLoad(udpConnections);
             DontDestroyOnLoad(chatCanvas);
         }
@@ -94,11 +94,16 @@ public class TCPClient : NetworkManager
 
     void Send()
     {
-       Byte[] msg = System.Text.Encoding.ASCII.GetBytes(udpRef.udpPort.ToString());
+
+        //Byte[] msg = new Byte[Marshal.SizeOf(udpRef.udpVariables)];
+        //SerializeStruct<LobbyUDP>(udpRef.udpVariables, ref msg, 0);
+        Byte[] msg = System.Text.Encoding.ASCII.GetBytes(udpRef.udpPort.ToString());
+
 
         stream = client.GetStream();
 
         stream.Write(msg, 0, msg.Length);
+       
 
     }
 
@@ -144,6 +149,11 @@ public class TCPClient : NetworkManager
         udpRef.playersPort[1] = portmsg.Client2_UDP_port;
         udpRef.playersPort[2] = portmsg.Client3_UDP_port;
         udpRef.playersPort[3] = portmsg.Client4_UDP_port;
+
+        //udpRef.playersIP[0] = portmsg.Client1_UDP_IP;
+        //udpRef.playersIP[1] = portmsg.Client2_UDP_IP;
+        //udpRef.playersIP[2] = portmsg.Client3_UDP_IP;
+        //udpRef.playersIP[3] = portmsg.Client4_UDP_IP;
 
         if(udpRef.playersPort.Length == 4)
         {

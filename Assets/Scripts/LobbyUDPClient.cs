@@ -14,14 +14,14 @@ public class LobbyUDPClient : MonoBehaviour
     internal UdpClient udpClient;
     public byte teamID = 0;
 
-    public Int32 udpPort;
-
     internal bool IsSceneChanged = false;
 
     private UDPClient udp;
 
     public Int32[] playersPort = new Int32[4];
+    public String[] playersIP = new String[4];
 
+    public Int32 udpPort;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,5 +44,9 @@ public class LobbyUDPClient : MonoBehaviour
     {
 
         udpPort = ((IPEndPoint)udpClient.Client.LocalEndPoint).Port;
+
+        //udpVariables.udpIP = ((IPEndPoint)udpClient.Client.LocalEndPoint).Address.ToString();
+
+        
     }
 }
