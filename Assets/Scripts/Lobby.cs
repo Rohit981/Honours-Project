@@ -109,7 +109,7 @@ public class Lobby : NetworkManager
            ClientPortNumber.Client1_UDP_port = Int32.Parse(data);
            //ClientPortNumber.Client1_UDP_IP = IpAdresses[0];
 
-            print("IP Recived: " + ClientPortNumber.Client1_UDP_IP);
+            //print("IP Recived: " + ClientPortNumber.Client1_UDP_IP);
             print("Port Recived: " + ClientPortNumber.Client1_UDP_port);
 
         }

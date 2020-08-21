@@ -48,10 +48,10 @@ public class NetworkManager : MonoBehaviour
         public Int32 Client4_UDP_port;
 
         //IP address
-        public string Client1_UDP_IP;
-        public string Client2_UDP_IP;
-        public string Client3_UDP_IP;
-        public string Client4_UDP_IP;
+        //public string Client1_UDP_IP;
+        //public string Client2_UDP_IP;
+        //public string Client3_UDP_IP;
+        //public string Client4_UDP_IP;
 
     }
 
